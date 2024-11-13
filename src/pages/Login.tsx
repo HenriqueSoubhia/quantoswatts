@@ -1,24 +1,37 @@
-import AuthForm from "@/components/AuthForm"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@radix-ui/react-label"
+import AuthForm from "@/components/AuthForm";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-label";
+import { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const navigate = useNavigate()
+
+  const handleSubmit = (e:FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+
+    navigate("/")
+  }
+
   return (
-    <div className="h-full">
-      <AuthForm>
+    <div>
+      <AuthForm title="Entrar" handleSubmit={handleSubmit}>
         <>
-          <Label htmlFor="email">Email</Label>
-          <Input type="email" id="email" placeholder="Email" />
-
-          <Label htmlFor="password">Senha</Label>
-          <Input type="password" id="password" placeholder="Senha" />
-
+          <Label>
+            <span>Email</span>
+            <Input type="email" placeholder="Email" />
+          </Label>
+          <Label>
+            <span>Senha</span>
+            <Input type="password" placeholder="Senha" />
+          </Label>
           <Button type="submit">Entrar</Button>
         </>
       </AuthForm>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

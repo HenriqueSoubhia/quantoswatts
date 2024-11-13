@@ -17,7 +17,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <Button asChild>
-                            <NavLink className="p-3" to="/cadastro">Cadastre-se</NavLink>
+                            <NavLink className="p-3" to="/cadastrar">Cadastre-se</NavLink>
                         </Button>
                     </li>
                 </ul>
