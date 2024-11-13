@@ -1,7 +1,19 @@
+import { AppSidebar } from "@/pages/Dashboard/components/AppSidebar"
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { Outlet } from "react-router-dom"
+
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <SidebarProvider>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+
+        <Outlet />
+
+      </main>
+    </SidebarProvider>
   )
 }
 
