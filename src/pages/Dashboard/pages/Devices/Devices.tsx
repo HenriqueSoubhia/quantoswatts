@@ -24,7 +24,7 @@ const Devices = () => {
   return (
     <div className="w-full p-8 flex flex-col items-center">
       {deviceList.map((device: IDevice, index: number) => (
-        <DeviceCard device={device} key={index} />
+        <DeviceCard setUpdate={() => setUpdate(prev => prev + 1)} device={device} key={index} />
       ))}
 
       <Dialog open={dialogOpen}>

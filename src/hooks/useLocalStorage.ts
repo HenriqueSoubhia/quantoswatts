@@ -27,10 +27,14 @@ const useLocalStorage = (key: string) => {
     }
 
     const removeData = (id: string) => {
-
+        const storedValue = localStorage.getItem(key);
+        if (storedValue) {
+            const newValue = JSON.stringify(JSON.parse(storedValue).filter((item: any) => item.id !== id))
+            localStorage.setItem(key, newValue);
+        }
     }
 
-    return { addData, getData, setData }
+    return { addData, getData, setData, removeData }
 };
 
 export default useLocalStorage;

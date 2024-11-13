@@ -2,23 +2,27 @@ import { Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter }
 import { Ban, Edit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { devices } from './DeviceForm';
+import useLocalStorage from '@/hooks/useLocalStorage';
+import IDevice from '@/interfaces/IDevice';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 interface DeviceCardProps {
-    device: {
-        icon: string;
-        name: string;
-        description: string;
-        wattsPerHour: number;
-    };
+    device: IDevice
+    setUpdate: () => void;
+
 }
 
 
-const DeviceCard = ({ device }: DeviceCardProps) => {
+const DeviceCard = ({ device, setUpdate }: DeviceCardProps) => {
 
     const Icon = devices.filter(item => item.value === device.icon)[0].icon
 
+    const { removeData } = useLocalStorage("deviceList");
+
     const handleDelete = () => {
-        console.log('Deletar dispositivo')
+        // console.log('Deletar dispositivo')
+        removeData(device.id)
+        setUpdate()
     }
 
     const handleEdit = () => {
@@ -36,14 +40,35 @@ const DeviceCard = ({ device }: DeviceCardProps) => {
                 <p className="text-lg font-medium">{device.wattsPerHour}Wh</p>
             </CardContent>
             <CardFooter className="flex justify-end flex-1 p-4 gap-2">
+
+                
                 <Button onClick={handleEdit} variant="outline" size="icon">
                     <Edit />
                     <span className="sr-only">Editar</span>
                 </Button>
-                <Button onClick={handleDelete} variant="destructive" size="icon">
-                    <Ban />
-                    <span className="sr-only">Deletar</span>
-                </Button>
+
+
+                <AlertDialog>
+                    <AlertDialogTrigger>
+                        <Button variant="destructive" size="icon">
+                            <Ban />
+                            <span className="sr-only">Deletar</span>
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Isso é irreversível e deletará todos os dados relacionados a
+                                <span className='font-bold'> {device.name}</span>.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction onClick={handleDelete}>Continuar</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </CardFooter>
         </Card>
     );
