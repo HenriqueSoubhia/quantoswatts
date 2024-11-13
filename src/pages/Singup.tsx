@@ -11,8 +11,12 @@ const Signup = () => {
   const [email, setEmail] = useState("henrique@gmail.com");
   const [password, setPassword] = useState("123");
   const [confirmPassword, setConfirmPassword] = useState("123");
-  const [users, setUsers] = useLocalStorage("users", []);
-  const [_, setUser] = useLocalStorage("user", {});
+
+  const { addData: addUsers, getData: getUsers } = useLocalStorage("users");
+  const [users] = useState(getUsers() || []);
+
+  const { setData: setUser } = useLocalStorage("user");
+
 
   const navigate = useNavigate();
 
@@ -36,9 +40,7 @@ const Signup = () => {
 
     const user = { name, email, password };
 
-    const updatedUsers = [...users, user];
-
-    setUsers(updatedUsers);
+    addUsers(user);
     setUser(user);
     navigate("/dashboard");
   };

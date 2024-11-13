@@ -11,8 +11,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [users] = useLocalStorage("users", []);
-  const [_, setUser] = useLocalStorage("user", {});
+  const { getData: getUsers } = useLocalStorage("users");
+  const { setData: setUser } = useLocalStorage("user");
+
+  const [users] = useState(getUsers() || []);
 
   const navigate = useNavigate()
 
