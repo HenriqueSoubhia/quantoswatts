@@ -7,7 +7,7 @@ const Dashboard = () => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
+      <main className="w-full">
         <SidebarTrigger />
 
         <Outlet />
