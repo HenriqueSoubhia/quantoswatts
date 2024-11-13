@@ -1,15 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
 import App from "./App";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Singup from "./pages/Singup";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -18,17 +16,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "/entrar",
-        element: <Login />
+        element: <Login />,
       },
       {
         path: "/cadastrar",
-        element: <Singup />
+        element: <Singup />,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
   },
 ]);
 

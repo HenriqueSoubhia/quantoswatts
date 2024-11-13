@@ -12,7 +12,7 @@ const Login = () => {
   const handleSubmit = (e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
 
-    navigate("/")
+    navigate("/dashboard")
   }
 
   return (
