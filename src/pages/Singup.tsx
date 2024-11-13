@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { ChangeEvent, FormEvent, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import IUser from "@/interfaces/IUser";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [name, setName] = useState("henrique");
@@ -12,6 +13,8 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("123");
   const [users, setUsers] = useLocalStorage("users", []);
   const [_, setUser] = useLocalStorage("user", {});
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +40,7 @@ const Signup = () => {
 
     setUsers(updatedUsers);
     setUser(user);
+    navigate("/dashboard");
   };
 
   return (

@@ -5,13 +5,16 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import IUser from "@/interfaces/IUser";
 
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [users, _] = useLocalStorage("users", []);
-  const [__, setUser] = useLocalStorage("user", {});
+  const [users] = useLocalStorage("users", []);
+  const [_, setUser] = useLocalStorage("user", {});
+
+  const navigate = useNavigate()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,10 +25,12 @@ const Login = () => {
       (item: IUser) => item.email === email
     )[0];
 
-    if (currentUser.password === password) {
+    if (currentUser && currentUser.password === password) {
       console.log(currentUser.name, "logado");
       setUser(currentUser);
+      navigate("/dashboard")
     }
+
   };
 
   return (

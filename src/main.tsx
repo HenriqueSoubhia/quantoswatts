@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Singup from "./pages/Singup";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 const router = createBrowserRouter([
   {
@@ -29,9 +30,15 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />,
+    element: <ProtectedRoutes />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+    ],
   },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
