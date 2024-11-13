@@ -9,9 +9,9 @@ interface AuthFormProps {
 
 const AuthForm = ({ children, title, handleSubmit }: AuthFormProps) => {
   return (
-    <Card className="max-w-96 mx-auto mt-16">
+    <Card className="max-w-96 mx-auto mt-20">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-center">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">{children}</form>
