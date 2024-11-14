@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -51,22 +52,23 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
 
   // const { updateItem } = useLocalStorage("deviceList");
 
-  const { addDevice } = useMenageStorage();
+  const { addDevice, getUser, updateDevice } = useMenageStorage();
 
-  const { getUser } = useMenageStorage();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
+    const userId = getUser().id;
+
     if (device) {
-      // const newDevice = {
-      //   name,
-      //   description,
-      //   wattsPerHour,
-      //   icon,
-      //   id: device.id,
-      // };
-      // updateItem(newDevice);
+      const newDevice = {
+        name,
+        description,
+        wattsPerHour,
+        icon,
+        id: device.id,
+      };
+      updateDevice(userId, newDevice);
     } else {
       const newDevice = {
         name,
@@ -75,7 +77,7 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
         icon,
         id: uniqid(),
       };
-      addDevice(getUser().id, newDevice);
+      addDevice(userId, newDevice);
     }
 
     setDialogOpen(false);
@@ -126,7 +128,18 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
         </SelectContent>
       </Select>
 
-      <Button type="submit">Editar dispositivo</Button>
+
+      {!device && (
+        <DialogClose asChild>
+          <Button type="submit">Adicionar dispositivo</Button>
+        </DialogClose>
+      )}
+      {device && (
+        <DialogClose asChild>
+          <Button type="submit">Editar dispositivo</Button>
+        </DialogClose>
+      )}
+
     </form>
   );
 };

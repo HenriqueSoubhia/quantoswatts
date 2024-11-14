@@ -51,12 +51,11 @@ const Devices = () => {
         </div>
       )}
 
-      <Dialog open={dialogOpen}>
+      <Dialog>
         <DialogTrigger asChild>
           <Button
             variant="outline"
             size="lg"
-            onClick={() => setDialogOpen(true)}
           >
             <Plus />
             <span>Adicionar Dispositivos</span>
