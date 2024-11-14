@@ -49,27 +49,28 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
   );
   const [icon, setIcon] = useState(device ? device.icon : "");
 
-  const { addData, setData, getData } = useLocalStorage("deviceList");
+  const { addData, updateItem } = useLocalStorage("deviceList");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const newDevice = {
-      name,
-      description,
-      wattsPerHour,
-      icon,
-      id: uniqid(),
-    };
 
     if (device) {
-      const oldData = getData();
-
-      const newData = oldData.map((item:IDevice) =>
-        item.id === device.id ? newDevice : item
-      );
-      
-      setData(newData);
+      const newDevice = {
+        name,
+        description,
+        wattsPerHour,
+        icon,
+        id: device.id,
+      };
+      updateItem(newDevice);
     } else {
+      const newDevice = {
+        name,
+        description,
+        wattsPerHour,
+        icon,
+        id: uniqid(),
+      };
       addData(newDevice);
     }
 
