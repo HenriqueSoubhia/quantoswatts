@@ -1,4 +1,15 @@
+import IUser from "@/interfaces/IUser";
+
 const useLocalStorage = (key: string) => {
+  
+  const getUser = () => {
+    const stringUser = localStorage.getItem("user");
+    if (stringUser) {
+      const user: IUser = JSON.parse(stringUser);
+      return stringUser ? user : null;
+    }
+  };
+
   const setData = (data: object) => {
     const newValue = JSON.stringify(data);
     localStorage.setItem(key, newValue);
@@ -40,7 +51,24 @@ const useLocalStorage = (key: string) => {
     }
   };
 
-  return { addData, getData, setData, removeData, updateItem };
+  const saveLocalStorage = (key: string, data: object) => {
+    localStorage.setItem(key, JSON.stringify(data));
+  };
+
+  const getLocalStorage = (key: string) => {
+    return JSON.parse(localStorage.getItem(key) || "");
+  };
+
+  return {
+    saveLocalStorage,
+    getLocalStorage,
+    addData,
+    getData,
+    setData,
+    removeData,
+    updateItem,
+    getUser,
+  };
 };
 
 export default useLocalStorage;

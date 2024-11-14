@@ -8,7 +8,7 @@ const ProtectedRoutes = () => {
 
   const [user] = useState(getData());
 
-  return user ? <Outlet /> : <Navigate to="/entrar" replace />;
+  return user.length != 0 ? <Outlet /> : <Navigate to="/entrar" replace />;
 };
 
 export default ProtectedRoutes;

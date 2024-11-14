@@ -13,23 +13,25 @@ import {
 import DeviceForm from "./components/DeviceForm";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import IDevice from "@/interfaces/IDevice";
+import useMenageStorage from "@/hooks/useMenageStorage";
 
 const Devices = () => {
   const [update, setUpdate] = useState<number>(0);
 
-  const { getData } = useLocalStorage("deviceList");
+  const { getUser } = useLocalStorage("deviceList");
+  const { getDevices } = useMenageStorage();
 
-  const [deviceList, setDeviceList] = useState<IDevice[]>(getData());
+  const [deviceList, setDeviceList] = useState<IDevice[]>([]);
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
-    setDeviceList(getData());
+    const user = getUser();
+    if (user) {
+      setDeviceList(getDevices(user.id));
+    }
   }, [update]);
 
-  {
-    /* erro do botao aqui */
-  }
   return (
     <div className="w-full p-8 flex flex-col items-center gap-4">
       {deviceList.map((device: IDevice, index: number) => (
@@ -51,6 +53,7 @@ const Devices = () => {
         </div>
       )}
 
+      {/* erro do botao aqui */}
       <Dialog open={dialogOpen}>
         <DialogTrigger>
           <Button

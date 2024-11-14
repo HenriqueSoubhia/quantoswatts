@@ -49,7 +49,6 @@ const Login = () => {
     }
 
     if (currentUser && currentUser.password === password) {
-      console.log(currentUser.name, "logado");
       setUser(currentUser);
       navigate("/dashboard");
     }

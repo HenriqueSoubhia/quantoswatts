@@ -14,10 +14,10 @@ const Signup = () => {
   const [password, setPassword] = useState("123");
   const [confirmPassword, setConfirmPassword] = useState("123");
 
-  const { addData: addUsers, getData: getUsers } = useLocalStorage("users");
+  const { getData: getUsers } = useLocalStorage("users");
   const [users] = useState(getUsers() || []);
 
-  const { setData: setUser } = useLocalStorage("user");
+  const { setData: setUser, addUser } = useLocalStorage("user");
 
   const navigate = useNavigate();
 
@@ -59,9 +59,9 @@ const Signup = () => {
       return;
     }
 
-    const user = { name, email, password, id: uniqid() };
+    const user = { name, email, password, id: uniqid(), devices: [] };
 
-    addUsers(user);
+    addUser(user);
     setUser(user);
     navigate("/dashboard");
   };

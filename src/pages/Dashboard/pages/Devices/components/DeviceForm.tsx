@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useMenageStorage from "@/hooks/useMenageStorage";
 import IDevice from "@/interfaces/IDevice";
 import {
   AirVent,
@@ -49,7 +50,11 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
   );
   const [icon, setIcon] = useState(device ? device.icon : "");
 
-  const { addData, updateItem } = useLocalStorage("deviceList");
+  const { updateItem } = useLocalStorage("deviceList");
+
+  const { addDevice } = useMenageStorage();
+
+  const { getData } = useLocalStorage("user");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -71,7 +76,7 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
         icon,
         id: uniqid(),
       };
-      addData(newDevice);
+      addDevice(getData().id, newDevice);
     }
 
     setDialogOpen(false);

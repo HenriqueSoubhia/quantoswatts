@@ -9,7 +9,6 @@ import {
 import { Ban, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import DeviceForm, { devices } from "./DeviceForm";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import IDevice from "@/interfaces/IDevice";
 import {
   AlertDialog,
@@ -31,6 +30,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import useMenageStorage from "@/hooks/useMenageStorage";
 
 interface DeviceCardProps {
   device: IDevice;
@@ -40,12 +40,13 @@ interface DeviceCardProps {
 const DeviceCard = ({ device, setUpdate }: DeviceCardProps) => {
   const Icon = devices.filter((item) => item.value === device.icon)[0].icon;
 
-  const { removeData } = useLocalStorage("deviceList");
+  const { deleteDevice, getUser } = useMenageStorage();
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDelete = () => {
-    removeData(device.id);
+    const user = getUser();
+    deleteDevice(user.id, device.id);
     setUpdate();
   };
 
