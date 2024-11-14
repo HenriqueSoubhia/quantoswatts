@@ -21,8 +21,6 @@ const Devices = () => {
 
   const [deviceList, setDeviceList] = useState<IDevice[]>([]);
 
-  const [dialogOpen, setDialogOpen] = useState(false);
-
   useEffect(() => {
     const user = getUser();
     if (user) {
@@ -34,6 +32,7 @@ const Devices = () => {
     <div className="w-full p-8 flex flex-col items-center gap-4">
       {deviceList.map((device: IDevice, index: number) => (
         <DeviceCard
+          editAndDelete
           setUpdate={() => setUpdate((prev) => prev + 1)}
           device={device}
           key={index}
@@ -69,7 +68,6 @@ const Devices = () => {
             </DialogDescription>
           </DialogHeader>
           <DeviceForm
-            setDialogOpen={setDialogOpen}
             setUpdate={() => setUpdate((prev) => prev + 1)}
           />
         </DialogContent>

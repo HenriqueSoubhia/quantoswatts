@@ -36,11 +36,10 @@ export const devices = [
 
 interface DeviceFormProps {
   setUpdate: () => void;
-  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   device?: IDevice;
 }
 
-const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
+const DeviceForm = ({ setUpdate, device }: DeviceFormProps) => {
   const [name, setName] = useState(device ? device.name : "");
   const [description, setDescription] = useState(
     device ? device.description : ""
@@ -79,8 +78,7 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
       };
       addDevice(userId, newDevice);
     }
-
-    setDialogOpen(false);
+    
     setUpdate();
   };
 

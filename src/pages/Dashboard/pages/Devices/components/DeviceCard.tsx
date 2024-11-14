@@ -29,26 +29,25 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
 import useMenageStorage from "@/hooks/useMenageStorage";
 
 interface DeviceCardProps {
   device: IDevice;
-  setUpdate: () => void;
+  setUpdate?: () => void;
+  editAndDelete?: boolean;
 }
 
-const DeviceCard = ({ device, setUpdate }: DeviceCardProps) => {
+const DeviceCard = ({ device, setUpdate, editAndDelete }: DeviceCardProps) => {
   const Icon = devices.filter((item) => item.value === device.icon)[0].icon;
 
   const { deleteDevice, getUser } = useMenageStorage();
-
-  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDelete = () => {
     const user = getUser();
     if (user) {
       deleteDevice(user.id, device.id);
-      setUpdate();
+      if (setUpdate) setUpdate();
+
     }
   };
 
@@ -68,53 +67,55 @@ const DeviceCard = ({ device, setUpdate }: DeviceCardProps) => {
         </CardDescription>
         <p className="text-lg font-medium">{device.wattsPerHour}Wh</p>
       </CardContent>
-      <CardFooter className="flex justify-end flex-1 p-4 gap-2">
-        <Dialog open={dialogOpen}>
-          <DialogTrigger onClick={() => setDialogOpen(true)}>
-            <Button variant="outline" size="icon">
-              <Edit />
-              <span className="sr-only">Editar</span>
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Editar dispositivo</DialogTitle>
-              <DialogDescription>
-                Aqui você pode editar um dispositivo da lista.
-              </DialogDescription>
-            </DialogHeader>
-            <DeviceForm
-              setDialogOpen={setDialogOpen}
-              setUpdate={() => setUpdate()}
-              device={device}
-            />
-          </DialogContent>
-        </Dialog>
+      {editAndDelete && (
 
-        <AlertDialog>
-          <AlertDialogTrigger>
-            <Button variant="destructive" size="icon">
-              <Ban />
-              <span className="sr-only">Deletar</span>
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Isso é irreversível e deletará todos os dados relacionados a
-                <span className="font-bold"> {device.name}</span>.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancelar</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDelete}>
-                Continuar
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </CardFooter>
+        <CardFooter className="flex justify-end flex-1 p-4 gap-2">
+          <Dialog>
+            <DialogTrigger>
+              <Button variant="outline" size="icon">
+                <Edit />
+                <span className="sr-only">Editar</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Editar dispositivo</DialogTitle>
+                <DialogDescription>
+                  Aqui você pode editar um dispositivo da lista.
+                </DialogDescription>
+              </DialogHeader>
+              <DeviceForm
+                setUpdate={() => setUpdate && setUpdate()}
+                device={device}
+              />
+            </DialogContent>
+          </Dialog>
+
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <Button variant="destructive" size="icon">
+                <Ban />
+                <span className="sr-only">Deletar</span>
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Isso é irreversível e deletará todos os dados relacionados a
+                  <span className="font-bold"> {device.name}</span>.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>
+                  Continuar
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </CardFooter>
+      )}
     </Card>
   );
 };
