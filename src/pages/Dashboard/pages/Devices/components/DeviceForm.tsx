@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -78,7 +78,7 @@ const DeviceForm = ({ setUpdate, device }: DeviceFormProps) => {
       };
       addDevice(userId, newDevice);
     }
-    
+
     setUpdate();
   };
 
@@ -126,18 +126,20 @@ const DeviceForm = ({ setUpdate, device }: DeviceFormProps) => {
         </SelectContent>
       </Select>
 
+      <DialogFooter>
 
-      {!device && (
-        <DialogClose asChild>
-          <Button type="submit">Adicionar dispositivo</Button>
-        </DialogClose>
-      )}
-      {device && (
-        <DialogClose asChild>
-          <Button type="submit">Editar dispositivo</Button>
-        </DialogClose>
-      )}
+        {!device && (
+          <DialogClose asChild>
+            <Button type="submit">Adicionar dispositivo</Button>
+          </DialogClose>
+        )}
+        {device && (
+          <DialogClose asChild>
+            <Button type="submit">Editar dispositivo</Button>
+          </DialogClose>
+        )}
 
+      </DialogFooter>
     </form>
   );
 };
