@@ -9,12 +9,10 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("henrique@gmail.com");
+  const [password, setPassword] = useState("123");
 
   const { setUser, getUsers } = useMenageStorage();
-
-  const [users] = useState(getUsers());
 
   const navigate = useNavigate();
 
@@ -32,6 +30,10 @@ const Login = () => {
 
       return;
     }
+
+    const users: IUser[] = getUsers();
+
+    if (users.length === 0) return
 
     const currentUser: IUser | undefined = users.find(
       (user: IUser) => user.email === email

@@ -4,7 +4,9 @@ import { Navigate, Outlet } from "react-router-dom";
 const ProtectedRoutes = () => {
   const { getUser } = useMenageStorage();
 
-  // console.log(getUser())
+  if (!getUser()) {
+    return <Navigate to="/cadastrar" />;
+  }
 
   return <Outlet />
 

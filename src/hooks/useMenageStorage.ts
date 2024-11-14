@@ -76,14 +76,16 @@ const useMenageStorage = () => {
     return [];
   };
 
-  const getUsers = () => {
-    const users: IUser = getLocalStorage("users");
-    return users ? users : [];
+
+  const getUsers = (): IUser[] => {
+    const users: IUser[] = getLocalStorage("users") || [];
+    return users;
+
   };
+
 
   const getUser = () => {
     const user: IUser = getLocalStorage("user");
-    console.log(user)
     return user;
   };
 

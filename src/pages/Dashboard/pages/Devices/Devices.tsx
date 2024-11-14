@@ -51,9 +51,8 @@ const Devices = () => {
         </div>
       )}
 
-      {/* erro do botao aqui */}
       <Dialog open={dialogOpen}>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button
             variant="outline"
             size="lg"
