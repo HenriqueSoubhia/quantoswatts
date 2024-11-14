@@ -1,50 +1,40 @@
 import IDevice from "@/interfaces/IDevice";
 import useLocalStorage from "./useLocalStorage";
 import IUser from "@/interfaces/IUser";
+import { IRegistration } from "@/interfaces/IRegistration";
 
 const useMenageStorage = () => {
   const { saveLocalStorage, getLocalStorage } = useLocalStorage();
 
-  //   const setData = (data: object) => {
-  //     const newValue = JSON.stringify(data);
-  //     localStorage.setItem(key, newValue);
-  //   };
+  const addRegistration = (userId: string, newRegistration: IRegistration) => {
+    const users: IUser[] = getLocalStorage("users");
 
-  //   const getData = () => {
-  //     const storedValue = localStorage.getItem(key);
-  //     return storedValue ? JSON.parse(storedValue) : [];
-  //   };
+    const currentUser = users.find(
+      (user: { id: string }) => user.id === userId);
 
-  //   const updateItem = (newData: { id: string }) => {
-  //     const oldData = getData();
+    if (currentUser) {
+      currentUser.registrations.push(newRegistration);
 
-  //     const updatedData = oldData.map((item: { id: string }) =>
-  //       item.id === newData.id ? newData : item
-  //     );
+      const updatedUsers = users.map((user: { id: string }) =>
+        user.id === userId ? currentUser : user
+      );
 
-  //     setData(updatedData);
-  //   };
+      saveLocalStorage("users", updatedUsers);
+    }
+  }
+  
+  const getRegistrations = (userId: string) => {
+    const users: IUser[] = getLocalStorage("users");
 
-  //   const addData = (newData: object) => {
-  //     const storedValue = localStorage.getItem(key);
-  //     if (storedValue) {
-  //       const newValue = JSON.stringify([...JSON.parse(storedValue), newData]);
-  //       localStorage.setItem(key, newValue);
-  //     } else {
-  //       const newValue = JSON.stringify([newData]);
-  //       localStorage.setItem(key, newValue);
-  //     }
-  //   };
+    const currentUser = users.find(
+      (user: { id: string }) => user.id === userId);
 
-  //   const removeData = (id: string) => {
-  //     const storedValue = localStorage.getItem(key);
-  //     if (storedValue) {
-  //       const newValue = JSON.stringify(
-  //         JSON.parse(storedValue).filter((item: { id: string }) => item.id !== id)
-  //       );
-  //       localStorage.setItem(key, newValue);
-  //     }
-  //   };
+    if (currentUser) {
+      return currentUser.registrations;
+    }
+
+    return [];
+  }
 
   const addDevice = (userId: string, newDevice: IDevice) => {
     const users: IUser[] = getLocalStorage("users");
@@ -104,21 +94,21 @@ const useMenageStorage = () => {
 
   const updateDevice = (userId: string, updatedDevice: IDevice) => {
     const users: IUser[] = getLocalStorage("users");
-  
+
     const currentUser = users.find(
       (user: { id: string }) => user.id === userId
     );
-  
+
     if (currentUser) {
       currentUser.devices = currentUser.devices.map(
         (device: IDevice) =>
           device.id === updatedDevice.id ? updatedDevice : device
       );
-  
+
       const updatedUsers = users.map((user: IUser) =>
         user.id === userId ? currentUser : user
       );
-  
+
       saveLocalStorage("users", updatedUsers);
     }
   }
@@ -144,6 +134,7 @@ const useMenageStorage = () => {
   };
 
   return {
+    addRegistration,
     addDevice,
     getDevices,
     addUser,
@@ -151,7 +142,8 @@ const useMenageStorage = () => {
     getUser,
     setUser,
     getUsers,
-    updateDevice
+    updateDevice,
+    getRegistrations
   };
 };
 

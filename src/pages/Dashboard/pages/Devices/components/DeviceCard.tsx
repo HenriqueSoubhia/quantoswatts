@@ -71,7 +71,7 @@ const DeviceCard = ({ device, setUpdate, editAndDelete }: DeviceCardProps) => {
 
         <CardFooter className="flex justify-end flex-1 p-4 gap-2">
           <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <Button variant="outline" size="icon">
                 <Edit />
                 <span className="sr-only">Editar</span>
@@ -92,7 +92,7 @@ const DeviceCard = ({ device, setUpdate, editAndDelete }: DeviceCardProps) => {
           </Dialog>
 
           <AlertDialog>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger asChild>
               <Button variant="destructive" size="icon">
                 <Ban />
                 <span className="sr-only">Deletar</span>

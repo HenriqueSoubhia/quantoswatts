@@ -1,4 +1,5 @@
 import IDevice from "./IDevice";
+import { IRegistration } from "./IRegistration";
 
 export default interface IUser {
   name: string;
@@ -6,4 +7,5 @@ export default interface IUser {
   email: string;
   id: string;
   devices: IDevice[];
+  registrations: IRegistration[];
 }

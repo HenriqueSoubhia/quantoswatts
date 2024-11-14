@@ -58,7 +58,7 @@ const Signup = () => {
       return;
     }
 
-    const user = { name, email, password, id: uniqid(), devices: [] };
+    const user = { name, email, password, id: uniqid(), devices: [], registrations: [] };
 
     addUser(user);
     setUser(user);
