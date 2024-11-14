@@ -27,8 +27,11 @@ const Devices = () => {
     setDeviceList(getData());
   }, [update]);
 
+  {
+    /* erro do botao aqui */
+  }
   return (
-    <div className="w-full p-8 flex flex-col items-center">
+    <div className="w-full p-8 flex flex-col items-center gap-4">
       {deviceList.map((device: IDevice, index: number) => (
         <DeviceCard
           setUpdate={() => setUpdate((prev) => prev + 1)}
@@ -36,6 +39,17 @@ const Devices = () => {
           key={index}
         />
       ))}
+
+      {deviceList.length === 0 && (
+        <div className="text-center flex flex-col gap-4">
+          <h1 className="text-2xl font-bold text-gray-800">
+            Nenhum dispositivo cadastrado
+          </h1>
+          <p className="text-gray-500">
+            Clique no botão abaixo para adicionar um novo dispositivo.
+          </p>
+        </div>
+      )}
 
       <Dialog open={dialogOpen}>
         <DialogTrigger>
