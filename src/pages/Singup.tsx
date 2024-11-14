@@ -2,11 +2,11 @@ import AuthForm from "@/components/AuthForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChangeEvent, FormEvent, useState } from "react";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import IUser from "@/interfaces/IUser";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import uniqid from "uniqid";
+import useMenageStorage from "@/hooks/useMenageStorage";
 
 const Signup = () => {
   const [name, setName] = useState("henrique");
@@ -14,10 +14,9 @@ const Signup = () => {
   const [password, setPassword] = useState("123");
   const [confirmPassword, setConfirmPassword] = useState("123");
 
-  const { getData: getUsers } = useLocalStorage("users");
-  const [users] = useState(getUsers() || []);
+  const { setUser, getUsers, addUser } = useMenageStorage();
 
-  const { setData: setUser, addUser } = useLocalStorage("user");
+  const [users] = useState(getUsers() || []);
 
   const navigate = useNavigate();
 

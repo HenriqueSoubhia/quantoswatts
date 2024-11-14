@@ -46,8 +46,10 @@ const DeviceCard = ({ device, setUpdate }: DeviceCardProps) => {
 
   const handleDelete = () => {
     const user = getUser();
-    deleteDevice(user.id, device.id);
-    setUpdate();
+    if (user) {
+      deleteDevice(user.id, device.id);
+      setUpdate();
+    }
   };
 
   //   const handleEdit = () => {

@@ -2,7 +2,7 @@ import AuthForm from "@/components/AuthForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import useLocalStorage from "@/hooks/useLocalStorage";
+import useMenageStorage from "@/hooks/useMenageStorage";
 import IUser from "@/interfaces/IUser";
 
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -12,10 +12,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { getData: getUsers } = useLocalStorage("users");
-  const { setData: setUser } = useLocalStorage("user");
+  const { setUser, getUsers } = useMenageStorage();
 
-  const [users] = useState(getUsers() || []);
+  const [users] = useState(getUsers());
 
   const navigate = useNavigate();
 
@@ -23,26 +22,26 @@ const Login = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!password || !email) {
       toast({
         title: "Campos não preenchidas",
         description: "Por favor, preencha os campos de senha e email",
-        variant:"destructive"
+        variant: "destructive",
       });
 
       return;
     }
 
-    const currentUser: IUser = users.filter(
-      (item: IUser) => item.email === email
-    )[0];
+    const currentUser: IUser | undefined = users.find(
+      (user: IUser) => user.email === email
+    );
 
     if (!currentUser || currentUser.password !== password) {
       toast({
         title: "Usuario ou Senha incorretos",
         description: "O usuario ou senha informados estão incorretos",
-        variant:"destructive"
+        variant: "destructive",
       });
 
       return;

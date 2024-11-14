@@ -11,15 +11,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import DeviceForm from "./components/DeviceForm";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import IDevice from "@/interfaces/IDevice";
 import useMenageStorage from "@/hooks/useMenageStorage";
 
 const Devices = () => {
   const [update, setUpdate] = useState<number>(0);
 
-  const { getUser } = useLocalStorage("deviceList");
-  const { getDevices } = useMenageStorage();
+  const { getDevices, getUser } = useMenageStorage();
 
   const [deviceList, setDeviceList] = useState<IDevice[]>([]);
 

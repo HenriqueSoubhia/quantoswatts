@@ -3,7 +3,48 @@ import useLocalStorage from "./useLocalStorage";
 import IUser from "@/interfaces/IUser";
 
 const useMenageStorage = () => {
-  const { saveLocalStorage, getLocalStorage } = useLocalStorage("");
+  const { saveLocalStorage, getLocalStorage } = useLocalStorage();
+
+  //   const setData = (data: object) => {
+  //     const newValue = JSON.stringify(data);
+  //     localStorage.setItem(key, newValue);
+  //   };
+
+  //   const getData = () => {
+  //     const storedValue = localStorage.getItem(key);
+  //     return storedValue ? JSON.parse(storedValue) : [];
+  //   };
+
+  //   const updateItem = (newData: { id: string }) => {
+  //     const oldData = getData();
+
+  //     const updatedData = oldData.map((item: { id: string }) =>
+  //       item.id === newData.id ? newData : item
+  //     );
+
+  //     setData(updatedData);
+  //   };
+
+  //   const addData = (newData: object) => {
+  //     const storedValue = localStorage.getItem(key);
+  //     if (storedValue) {
+  //       const newValue = JSON.stringify([...JSON.parse(storedValue), newData]);
+  //       localStorage.setItem(key, newValue);
+  //     } else {
+  //       const newValue = JSON.stringify([newData]);
+  //       localStorage.setItem(key, newValue);
+  //     }
+  //   };
+
+  //   const removeData = (id: string) => {
+  //     const storedValue = localStorage.getItem(key);
+  //     if (storedValue) {
+  //       const newValue = JSON.stringify(
+  //         JSON.parse(storedValue).filter((item: { id: string }) => item.id !== id)
+  //       );
+  //       localStorage.setItem(key, newValue);
+  //     }
+  //   };
 
   const addDevice = (userId: string, newDevice: IDevice) => {
     const users: IUser[] = getLocalStorage("users");
@@ -35,9 +76,19 @@ const useMenageStorage = () => {
     return [];
   };
 
+  const getUsers = () => {
+    const users: IUser = getLocalStorage("users");
+    return users ? users : [];
+  };
+
   const getUser = () => {
     const user: IUser = getLocalStorage("user");
+    console.log(user)
     return user;
+  };
+
+  const setUser = (user: IUser) => {
+    saveLocalStorage("user", user);
   };
 
   const addUser = (newUser: IUser) => {
@@ -71,7 +122,15 @@ const useMenageStorage = () => {
     }
   };
 
-  return { addDevice, getDevices, addUser, deleteDevice, getUser };
+  return {
+    addDevice,
+    getDevices,
+    addUser,
+    deleteDevice,
+    getUser,
+    setUser,
+    getUsers,
+  };
 };
 
 export default useMenageStorage;

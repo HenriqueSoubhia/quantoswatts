@@ -1,14 +1,13 @@
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { useState } from "react";
+import useMenageStorage from "@/hooks/useMenageStorage";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoutes = () => {
-  // TODO: Use authentication token
-  const { getData } = useLocalStorage("user");
+  const { getUser } = useMenageStorage();
 
-  const [user] = useState(getData());
+  // console.log(getUser())
 
-  return user.length != 0 ? <Outlet /> : <Navigate to="/entrar" replace />;
+  return <Outlet />
+
 };
 
 export default ProtectedRoutes;

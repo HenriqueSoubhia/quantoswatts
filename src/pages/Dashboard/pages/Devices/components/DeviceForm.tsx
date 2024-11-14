@@ -7,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import useMenageStorage from "@/hooks/useMenageStorage";
 import IDevice from "@/interfaces/IDevice";
 import {
@@ -50,24 +49,24 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
   );
   const [icon, setIcon] = useState(device ? device.icon : "");
 
-  const { updateItem } = useLocalStorage("deviceList");
+  // const { updateItem } = useLocalStorage("deviceList");
 
   const { addDevice } = useMenageStorage();
 
-  const { getData } = useLocalStorage("user");
+  const { getUser } = useMenageStorage();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (device) {
-      const newDevice = {
-        name,
-        description,
-        wattsPerHour,
-        icon,
-        id: device.id,
-      };
-      updateItem(newDevice);
+      // const newDevice = {
+      //   name,
+      //   description,
+      //   wattsPerHour,
+      //   icon,
+      //   id: device.id,
+      // };
+      // updateItem(newDevice);
     } else {
       const newDevice = {
         name,
@@ -76,7 +75,7 @@ const DeviceForm = ({ setUpdate, setDialogOpen, device }: DeviceFormProps) => {
         icon,
         id: uniqid(),
       };
-      addDevice(getData().id, newDevice);
+      addDevice(getUser().id, newDevice);
     }
 
     setDialogOpen(false);
