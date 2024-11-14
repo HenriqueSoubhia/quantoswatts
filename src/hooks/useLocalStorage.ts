@@ -20,7 +20,6 @@ const useLocalStorage = (key: string) => {
             localStorage.setItem(key, newValue);
         } else {
             const newValue = JSON.stringify([newData])
-            console.log(newValue)
             localStorage.setItem(key, newValue);
         }
 

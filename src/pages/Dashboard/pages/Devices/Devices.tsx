@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import DeviceCard from "./components/DeviceCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import DeviceForm from "./components/DeviceForm";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import IDevice from "@/interfaces/IDevice";
@@ -20,26 +27,38 @@ const Devices = () => {
     setDeviceList(getData());
   }, [update]);
 
-
   return (
     <div className="w-full p-8 flex flex-col items-center">
       {deviceList.map((device: IDevice, index: number) => (
-        <DeviceCard setUpdate={() => setUpdate(prev => prev + 1)} device={device} key={index} />
+        <DeviceCard
+          setUpdate={() => setUpdate((prev) => prev + 1)}
+          device={device}
+          key={index}
+        />
       ))}
 
       <Dialog open={dialogOpen}>
         <DialogTrigger>
-          <Button variant="outline" size="lg" onClick={() => setDialogOpen(true)}>
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => setDialogOpen(true)}
+          >
             <Plus />
             <span>Adicionar Dispositivos</span>
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Adicionar novo dispositivo ?</DialogTitle>
+            <DialogTitle>Adicionar novo dispositivo</DialogTitle>
+            <DialogDescription>
+              Aqui você pode adicionar um novo dispositivo à lista.
+            </DialogDescription>
           </DialogHeader>
-
-          <DeviceForm setDialogOpen={setDialogOpen} setUpdate={() => setUpdate(prev => prev + 1)} />
+          <DeviceForm
+            setDialogOpen={setDialogOpen}
+            setUpdate={() => setUpdate((prev) => prev + 1)}
+          />
         </DialogContent>
       </Dialog>
     </div>

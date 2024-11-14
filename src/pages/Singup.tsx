@@ -6,6 +6,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import IUser from "@/interfaces/IUser";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import uniqid from "uniqid";
 
 const Signup = () => {
   const [name, setName] = useState("henrique");
@@ -58,7 +59,7 @@ const Signup = () => {
       return;
     }
 
-    const user = { name, email, password };
+    const user = { name, email, password, id: uniqid() };
 
     addUsers(user);
     setUser(user);
