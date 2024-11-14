@@ -5,6 +5,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import IUser from "@/interfaces/IUser";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const Signup = () => {
   const [name, setName] = useState("henrique");
@@ -17,24 +18,43 @@ const Signup = () => {
 
   const { setData: setUser } = useLocalStorage("user");
 
-
   const navigate = useNavigate();
+
+  const { toast } = useToast();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     //caso tenha inputs em branco
-    if (!password || !name || !email || !confirmPassword) return;
+    if (!password || !name || !email || !confirmPassword) {
+      toast({
+        title: "Campos não preenchidos",
+        description: "Por favor, preencha todos os campos",
+        variant: "destructive",
+      });
+      return;
+    }
 
     //caso senhas nao coincidem
-    if (password !== confirmPassword) return;
+    if (password !== confirmPassword) {
+      toast({
+        title: "Senhas não coincidem",
+        description: "As senhas informadas são diferentes",
+        variant: "destructive",
+      });
+      return;
+    }
 
     const currentUser: IUser[] = users.filter(
       (item: IUser) => item.email === email
     );
 
     if (currentUser.length > 0) {
-      console.log("Email ja cadastrado");
+      toast({
+        title: "Email já cadastrado",
+        description: "O email informado já está cadastrado",
+        variant: "destructive",
+      });
       return;
     }
 

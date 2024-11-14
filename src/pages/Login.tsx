@@ -1,6 +1,7 @@
 import AuthForm from "@/components/AuthForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import IUser from "@/interfaces/IUser";
 
@@ -16,23 +17,42 @@ const Login = () => {
 
   const [users] = useState(getUsers() || []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const { toast } = useToast();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!password || !email) {
+      toast({
+        title: "Campos não preenchidas",
+        description: "Por favor, preencha os campos de senha e email",
+        variant:"destructive"
+      });
 
-    if (!password || !email) return;
+      return;
+    }
 
     const currentUser: IUser = users.filter(
       (item: IUser) => item.email === email
     )[0];
 
+    if (!currentUser || currentUser.password !== password) {
+      toast({
+        title: "Usuario ou Senha incorretos",
+        description: "O usuario ou senha informados estão incorretos",
+        variant:"destructive"
+      });
+
+      return;
+    }
+
     if (currentUser && currentUser.password === password) {
       console.log(currentUser.name, "logado");
       setUser(currentUser);
-      navigate("/dashboard")
+      navigate("/dashboard");
     }
-
   };
 
   return (
