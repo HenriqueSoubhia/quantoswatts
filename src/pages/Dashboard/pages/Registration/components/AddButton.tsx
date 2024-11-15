@@ -36,7 +36,8 @@ const AddButton = ({
   setTimeUsed,
   timeUsed,
   handleSubmit,
-  deviceList
+  deviceList,
+  
 }: AddButtonProps) => {
   return (
     <Dialog>

@@ -16,6 +16,9 @@ const Registration = () => {
 
   const [deviceList, setDeviceList] = useState<IDevice[]>([])
 
+  const [update, setUpdate] = useState<number>(0)
+
+
   const updateData = () => {
     const user = getCurrentUserData()
     if (user) {
@@ -35,11 +38,13 @@ const Registration = () => {
     }
 
     addRegistration(getCurrentUserData().id, registration)
+
+    setUpdate(prev => prev + 1)
   }
 
   useEffect(() => {
     updateData()
-  }, [])
+  }, [update])
 
   return (
     <div className='w-full p-8 flex flex-col items-center gap-4'>
@@ -60,6 +65,7 @@ const Registration = () => {
             setTimeUsed={setTimeUsed}
             timeUsed={timeUsed}
             handleSubmit={handleAddSubmit}
+            
             deviceList={deviceList}
           />
 

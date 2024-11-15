@@ -3,6 +3,7 @@ import DeviceCard from './components/DeviceCard'
 import IDevice from '@/interfaces/IDevice'
 import useMenageStorage from '@/hooks/useMenageStorage'
 import AddButton from './components/AddButton'
+import ListCard from '@/components/ListCard'
 
 const Devices = () => {
   const [update, setUpdate] = useState<number>(0)
@@ -23,12 +24,20 @@ const Devices = () => {
       <AddButton setUpdate={setUpdate} />
       
       {deviceList.map((device: IDevice, index: number) => (
-        <DeviceCard
-          editAndDelete
-          setUpdate={() => setUpdate(prev => prev + 1)}
-          device={device}
-          key={index}
+
+        <ListCard 
+          title={device.name}
+          description={device.description}
+          content={device.wattsPerHour}
+          icon={device.icon}
         />
+
+        // <DeviceCard
+        //   editAndDelete
+        //   setUpdate={() => setUpdate(prev => prev + 1)}
+        //   device={device}
+        //   key={index}
+        // />
       ))}
 
       {deviceList.length === 0 && (

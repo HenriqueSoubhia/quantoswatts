@@ -15,7 +15,7 @@ const Signup = () => {
   const [password, setPassword] = useState('123')
   const [confirmPassword, setConfirmPassword] = useState('123')
 
-  const { setUser, getUsers, addUser } = useMenageStorage()
+  const { getUsers, addUser } = useMenageStorage()
 
   const { setAuthUser } = useAuth()
 

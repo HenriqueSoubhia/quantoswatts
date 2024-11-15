@@ -15,7 +15,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from '@/components/ui/sidebar'
-import useAuth from '@/hooks/useAuth'
 import useMenageStorage from '@/hooks/useMenageStorage'
 import {
   ChartNoAxesColumnDecreasing,
@@ -27,7 +26,7 @@ import {
   Smartphone,
   User2
 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const items = [
   {
@@ -44,7 +43,7 @@ const items = [
     title: 'Registro de Consumo',
     url: '/dashboard/registro',
     icon: FileStack
-  },
+  }
   // {
   //     title: "Relatórios e Gráficos",
   //     url: "/dashboard/relatorios",
@@ -65,6 +64,8 @@ export function AppSidebar () {
   const { logoff, getCurrentUserData } = useMenageStorage()
 
   const user = getCurrentUserData()
+
+  const navigate = useNavigate()
 
   return (
     <Sidebar>
@@ -102,7 +103,12 @@ export function AppSidebar () {
                 className='w-[--radix-popper-anchor-width]'
               >
                 <DropdownMenuItem onClick={logoff}>
-                  <span>Sign out</span>
+                  <span>Sair</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => navigate('/dashboard/configuracoes')}
+                >
+                  <span>Configurações</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
