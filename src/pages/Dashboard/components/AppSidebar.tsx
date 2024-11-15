@@ -26,21 +26,21 @@ const items = [
         url: "/dashboard/registro",
         icon: FileStack,
     },
-    {
-        title: "Relatórios e Gráficos",
-        url: "/dashboard/relatorios",
-        icon: ChartNoAxesColumnDecreasing,
-    },
-    {
-        title: "Configurações",
-        url: "/dashboard/configuracoes",
-        icon: Settings,
-    },
-    {
-        title: "Alertas e Recomendações",
-        url: "/dashboard/alertas",
-        icon: CircleAlert,
-    },
+    // {
+    //     title: "Relatórios e Gráficos",
+    //     url: "/dashboard/relatorios",
+    //     icon: ChartNoAxesColumnDecreasing,
+    // },
+    // {
+    //     title: "Configurações",
+    //     url: "/dashboard/configuracoes",
+    //     icon: Settings,
+    // },
+    // {
+    //     title: "Alertas e Recomendações",
+    //     url: "/dashboard/alertas",
+    //     icon: CircleAlert,
+    // },
 
 ]
 export function AppSidebar() {

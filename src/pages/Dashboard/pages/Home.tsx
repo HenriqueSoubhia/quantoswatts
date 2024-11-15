@@ -3,8 +3,9 @@ import useMenageStorage from '@/hooks/useMenageStorage';
 import IDevice from '@/interfaces/IDevice';
 import { IRegistration } from '@/interfaces/IRegistration';
 import { useEffect, useState } from 'react';
-import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
-import { Bar, BarChart } from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
+import { Label } from '@/components/ui/label';
 
 
 
@@ -62,13 +63,9 @@ const DashboardHome = () => {
 
 
   const chartConfig = {
-    desktop: {
-      label: "Desktop",
+    watts: {
+      label: "Watts",
       color: "#2563eb",
-    },
-    mobile: {
-      label: "Mobile",
-      color: "#60a5fa",
     },
   } satisfies ChartConfig
 
@@ -88,12 +85,23 @@ const DashboardHome = () => {
         </CardHeader>
 
         <CardContent >
-          {/* <p>Seu gasto total é: {totalWatts}Wh</p> */}
-          <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-            <BarChart accessibilityLayer data={monthWatts}>
-              <Bar dataKey="watts" fill="var(--color-desktop)" radius={4} />
-            </BarChart>
-          </ChartContainer>
+          <div>
+            <Label> Gasto de watts mensais</Label>
+            <ChartContainer config={chartConfig} className="max-w-96">
+              <BarChart accessibilityLayer data={monthWatts}>
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar dataKey="watts" fill="var(--color-watts)" radius={4} />
+              </BarChart>
+            </ChartContainer>
+          </div>
         </CardContent>
 
       </Card>
