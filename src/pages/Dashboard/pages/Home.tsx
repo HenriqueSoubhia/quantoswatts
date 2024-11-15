@@ -3,12 +3,16 @@ import useMenageStorage from '@/hooks/useMenageStorage';
 import IDevice from '@/interfaces/IDevice';
 import { IRegistration } from '@/interfaces/IRegistration';
 import { useEffect, useState } from 'react';
+import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
+import { Bar, BarChart } from 'recharts';
+
 
 
 const DashboardHome = () => {
 
   const { getUser } = useMenageStorage()
   const [totalWatts, setTotalWatts] = useState(0)
+  const [monthWatts, setMonthWatts] = useState<any[]>([])
 
   const convertTimeToFloat = (time: string) => {
     const [hours, minutes] = time.split(":").map(Number);
@@ -32,27 +36,42 @@ const DashboardHome = () => {
   }
 
   const getMonthRegistration = () => {
-    const wattsPerMonth: { month: number, watts: number }[] = []
+    const wattsPerMonth: { month: string, desktop: number }[] = []
     const registrations = getUser().registrations
     const devices = getUser().devices
 
     registrations.forEach((registration: IRegistration) => {
       const registrationDate = new Date(registration.date)
-      const month = registrationDate.getMonth() + 1
+      const month = registrationDate.toLocaleDateString('default', { month: 'long' });
 
 
       if (!wattsPerMonth.find(monthPerMonth => monthPerMonth.month === month)) {
-        wattsPerMonth.push({ month, watts: 0 })
+        wattsPerMonth.push({ month, desktop: 0 })
       }
 
       const device = devices.find((device: IDevice) => device.id === registration.deviceId);
       if (device) {
-        wattsPerMonth.find(wattsPerMonth => wattsPerMonth.month === month)!.watts += device.wattsPerHour
+        wattsPerMonth.find(wattsPerMonth => wattsPerMonth.month === month)!.desktop += device.wattsPerHour
       }
 
     });
 
+    setMonthWatts(wattsPerMonth)
+
   }
+
+
+  const chartConfig = {
+    desktop: {
+      label: "Desktop",
+      color: "#2563eb",
+    },
+    mobile: {
+      label: "Mobile",
+      color: "#60a5fa",
+    },
+  } satisfies ChartConfig
+
 
   useEffect(() => {
     getTotalWatts()
@@ -69,7 +88,13 @@ const DashboardHome = () => {
         </CardHeader>
 
         <CardContent >
-          <p>Seu gasto total é: {totalWatts}Wh</p>
+          {/* <p>Seu gasto total é: {totalWatts}Wh</p> */}
+          <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+            <BarChart accessibilityLayer data={monthWatts}>
+              <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+              <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            </BarChart>
+          </ChartContainer>
         </CardContent>
 
       </Card>
