@@ -36,7 +36,7 @@ const DashboardHome = () => {
   }
 
   const getMonthRegistration = () => {
-    const wattsPerMonth: { month: string, desktop: number }[] = []
+    const wattsPerMonth: { month: string, watts: number }[] = []
     const registrations = getUser().registrations
     const devices = getUser().devices
 
@@ -46,12 +46,12 @@ const DashboardHome = () => {
 
 
       if (!wattsPerMonth.find(monthPerMonth => monthPerMonth.month === month)) {
-        wattsPerMonth.push({ month, desktop: 0 })
+        wattsPerMonth.push({ month, watts: 0 })
       }
 
       const device = devices.find((device: IDevice) => device.id === registration.deviceId);
       if (device) {
-        wattsPerMonth.find(wattsPerMonth => wattsPerMonth.month === month)!.desktop += device.wattsPerHour
+        wattsPerMonth.find(wattsPerMonth => wattsPerMonth.month === month)!.watts += device.wattsPerHour
       }
 
     });
@@ -91,8 +91,7 @@ const DashboardHome = () => {
           {/* <p>Seu gasto total é: {totalWatts}Wh</p> */}
           <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
             <BarChart accessibilityLayer data={monthWatts}>
-              <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-              <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+              <Bar dataKey="watts" fill="var(--color-desktop)" radius={4} />
             </BarChart>
           </ChartContainer>
         </CardContent>
