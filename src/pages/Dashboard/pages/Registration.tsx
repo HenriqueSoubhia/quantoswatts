@@ -111,7 +111,7 @@ const Registration = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-gray-600">Tempo usado: {registration.timeUsed}</p>
-              <p className="text-sm text-gray-600">Gasto de Watts: {timeUsedInHours}</p>
+              <p className="text-sm text-gray-600">Gasto de Watts: {timeUsedInHours * device.wattsPerHour}</p>
             </CardContent>
           </Card>
         )
