@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 
 const DashboardHome = () => {
 
-  const { getUser } = useMenageStorage()
+  const { getCurrentUserData } = useMenageStorage()
   const [totalWatts, setTotalWatts] = useState(0)
   const [monthWatts, setMonthWatts] = useState<any[]>([])
 
@@ -23,8 +23,8 @@ const DashboardHome = () => {
 
   const getTotalWatts = () => {
     let total = 0
-    const registrations = getUser().registrations
-    const devices = getUser().devices
+    const registrations = getCurrentUserData().registrations
+    const devices = getCurrentUserData().devices
 
 
     registrations.forEach((registration: IRegistration) => {
@@ -36,10 +36,11 @@ const DashboardHome = () => {
     setTotalWatts(total)
   }
 
+
   const getMonthRegistration = () => {
     const wattsPerMonth: { month: string, watts: number }[] = []
-    const registrations = getUser().registrations
-    const devices = getUser().devices
+    const registrations = getCurrentUserData().registrations
+    const devices = getCurrentUserData().devices
 
     registrations.forEach((registration: IRegistration) => {
       const registrationDate = new Date(registration.date)
@@ -52,7 +53,7 @@ const DashboardHome = () => {
 
       const device = devices.find((device: IDevice) => device.id === registration.deviceId);
       if (device) {
-        wattsPerMonth.find(wattsPerMonth => wattsPerMonth.month === month)!.watts += device.wattsPerHour
+        wattsPerMonth.find(wattsPerMonth => wattsPerMonth.month === month)!.watts += device.wattsPerHour * convertTimeToFloat(registration.timeUsed)
       }
 
     });
@@ -81,7 +82,7 @@ const DashboardHome = () => {
     <div className="p-5">
       <Card>
         <CardHeader>
-          <CardTitle>Bem vindo, {getUser().name}!</CardTitle>
+          <CardTitle>Bem vindo, {getCurrentUserData().name}!</CardTitle>
         </CardHeader>
 
         <CardContent >

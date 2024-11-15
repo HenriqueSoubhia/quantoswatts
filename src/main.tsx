@@ -12,7 +12,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import DashboardHome from "./pages/Dashboard/pages/Home";
 import Settings from "./pages/Dashboard/pages/Settings";
 import Report from "./pages/Dashboard/pages/Report";
-import Registration from "./pages/Dashboard/pages/Registration";
+import Registration from "./pages/Dashboard/pages/Registration/Registration";
 import Devices from "./pages/Dashboard/pages/Devices/Devices";
 import Alerts from "./pages/Dashboard/pages/Alerts";
 

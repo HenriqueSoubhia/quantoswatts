@@ -2,9 +2,12 @@ import IDevice from "@/interfaces/IDevice";
 import useLocalStorage from "./useLocalStorage";
 import IUser from "@/interfaces/IUser";
 import { IRegistration } from "@/interfaces/IRegistration";
+import { useNavigate } from "react-router-dom";
 
 const useMenageStorage = () => {
   const { saveLocalStorage, getLocalStorage } = useLocalStorage();
+
+  const navigate = useNavigate()
 
   const addRegistration = (userId: string, newRegistration: IRegistration) => {
     const users: IUser[] = getLocalStorage("users");
@@ -23,19 +26,6 @@ const useMenageStorage = () => {
     }
   }
   
-  const getRegistrations = (userId: string) => {
-    const users: IUser[] = getLocalStorage("users");
-
-    const currentUser = users.find(
-      (user: { id: string }) => user.id === userId);
-
-    if (currentUser) {
-      return currentUser.registrations;
-    }
-
-    return [];
-  }
-
   const addDevice = (userId: string, newDevice: IDevice) => {
     const users: IUser[] = getLocalStorage("users");
 
@@ -52,19 +42,6 @@ const useMenageStorage = () => {
     }
   };
 
-  const getDevices = (userId: string) => {
-    const users: IUser[] = getLocalStorage("users");
-
-    const currentUser = users.find(
-      (user: { id: string }) => user.id === userId
-    );
-
-    if (currentUser) {
-      return currentUser.devices;
-    }
-
-    return [];
-  };
 
 
   const getUsers = (): IUser[] => {
@@ -72,10 +49,17 @@ const useMenageStorage = () => {
     return users;
   };
 
-  const getUser = () => {
-    const user: IUser = getLocalStorage("user");
-    return user;
+  const getCurrentUserData = () => {
+    const user = getLocalStorage("user");
+    const currentUser = getUsers().find(item => item.id === user.id)
+
+    return currentUser!;
   };
+
+  const logoff = ()=>{
+    saveLocalStorage("user", null);
+    navigate('/')
+  }
 
   const setUser = (user: IUser) => {
     saveLocalStorage("user", user);
@@ -136,14 +120,13 @@ const useMenageStorage = () => {
   return {
     addRegistration,
     addDevice,
-    getDevices,
     addUser,
     deleteDevice,
-    getUser,
+    getCurrentUserData,
     setUser,
     getUsers,
     updateDevice,
-    getRegistrations
+    logoff
   };
 };
 

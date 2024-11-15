@@ -1,15 +1,14 @@
-import useMenageStorage from "@/hooks/useMenageStorage";
-import { Navigate, Outlet } from "react-router-dom";
+import useAuth from '@/hooks/useAuth'
+import { Navigate, Outlet } from 'react-router-dom'
 
 const ProtectedRoutes = () => {
-  const { getUser } = useMenageStorage();
+  const { getAuthUser } = useAuth()
 
-  if (!getUser()) {
-    return <Navigate to="/cadastrar" />;
+  if (!getAuthUser()) {
+    return <Navigate to='/cadastrar' />
   }
 
   return <Outlet />
+}
 
-};
-
-export default ProtectedRoutes;
+export default ProtectedRoutes

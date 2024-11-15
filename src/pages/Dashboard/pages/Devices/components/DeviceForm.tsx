@@ -51,13 +51,13 @@ const DeviceForm = ({ setUpdate, device }: DeviceFormProps) => {
 
   // const { updateItem } = useLocalStorage("deviceList");
 
-  const { addDevice, getUser, updateDevice } = useMenageStorage();
+  const { addDevice, getCurrentUserData, updateDevice } = useMenageStorage();
 
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    const userId = getUser().id;
+    const userId = getCurrentUserData().id;
 
     if (device) {
       const newDevice = {

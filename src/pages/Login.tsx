@@ -2,6 +2,7 @@ import AuthForm from "@/components/AuthForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import useAuth from "@/hooks/useAuth";
 import useMenageStorage from "@/hooks/useMenageStorage";
 import IUser from "@/interfaces/IUser";
 
@@ -12,7 +13,9 @@ const Login = () => {
   const [email, setEmail] = useState("henrique@gmail.com");
   const [password, setPassword] = useState("123");
 
-  const { setUser, getUsers } = useMenageStorage();
+  const { getUsers } = useMenageStorage();
+
+  const { setAuthUser } = useAuth()
 
   const navigate = useNavigate();
 
@@ -50,7 +53,7 @@ const Login = () => {
     }
 
     if (currentUser && currentUser.password === password) {
-      setUser(currentUser);
+      setAuthUser({name: currentUser.name, id: currentUser.id})
       navigate("/dashboard");
     }
   };

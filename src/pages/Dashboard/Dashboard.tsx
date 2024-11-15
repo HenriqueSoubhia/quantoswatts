@@ -7,8 +7,8 @@ const Dashboard = () => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full">
-        <SidebarTrigger />
+      <main className="w-full relative">
+        <SidebarTrigger className="mt-4 ml-4"/>
 
         <Outlet />
 
