@@ -6,7 +6,7 @@ import IUser from '@/interfaces/IUser'
 import { useNavigate } from 'react-router-dom'
 import { useToast } from '@/hooks/use-toast'
 import uniqid from 'uniqid'
-import useMenageStorage from '@/hooks/useMenageStorage'
+import useMenageUser from '@/hooks/useMenageUser'
 import useAuth from '@/hooks/useAuth'
 
 const Signup = () => {
@@ -15,7 +15,7 @@ const Signup = () => {
   const [password, setPassword] = useState('123')
   const [confirmPassword, setConfirmPassword] = useState('123')
 
-  const { getUsers, addUser } = useMenageStorage()
+  const { getUsers, addUser } = useMenageUser()
 
   const { setAuthUser } = useAuth()
 

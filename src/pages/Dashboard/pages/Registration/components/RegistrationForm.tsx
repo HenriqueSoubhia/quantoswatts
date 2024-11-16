@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import useMenageStorage from '@/hooks/useMenageStorage'
+import useMenageUser from '@/hooks/useMenageUser'
 import IDevice from '@/interfaces/IDevice'
 import { IRegistration } from '@/interfaces/IRegistration'
 import { FormEvent, useState } from 'react'
@@ -26,7 +26,7 @@ const RegistrationForm = ({
   handleEdit,
   handleAdd
 }: RegistrationFormProps) => {
-  const { getCurrentUserData } = useMenageStorage()
+  const { getCurrentUserData } = useMenageUser()
 
   const [selectedDevice, setSelectedDevice] = useState('')
   const [timeUsed, setTimeUsed] = useState('00:15')

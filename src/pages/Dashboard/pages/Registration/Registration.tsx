@@ -1,4 +1,4 @@
-import useMenageStorage from '@/hooks/useMenageStorage'
+import useMenageUser from '@/hooks/useMenageUser'
 import IDevice from '@/interfaces/IDevice'
 import { IRegistration } from '@/interfaces/IRegistration'
 import { useEffect, useState } from 'react'
@@ -7,7 +7,7 @@ import ListCard from '@/components/ListCard'
 import useMenageRegistration from '@/hooks/useMenageRegistration'
 
 const Registration = () => {
-  const { getCurrentUserData } = useMenageStorage()
+  const { getCurrentUserData } = useMenageUser()
 
   const [registrations, setRegistrations] = useState<IRegistration[]>([])
 

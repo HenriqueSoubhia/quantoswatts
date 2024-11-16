@@ -15,7 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from '@/components/ui/sidebar'
-import useMenageStorage from '@/hooks/useMenageStorage'
+import useMenageUser from '@/hooks/useMenageUser'
 import {
   ChartNoAxesColumnDecreasing,
   ChevronUp,
@@ -61,7 +61,7 @@ const items = [
   // },
 ]
 export function AppSidebar () {
-  const { logoff, getCurrentUserData } = useMenageStorage()
+  const { logoff, getCurrentUserData } = useMenageUser()
 
   const user = getCurrentUserData()
 

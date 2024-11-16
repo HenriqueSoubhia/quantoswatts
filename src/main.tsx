@@ -10,7 +10,7 @@ import Singup from "./pages/Singup";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import DashboardHome from "./pages/Dashboard/pages/Home/Home";
-import Settings from "./pages/Dashboard/pages/Settings";
+import Settings from "./pages/Dashboard/pages/Settings/Settings";
 import Report from "./pages/Dashboard/pages/Report";
 import Registration from "./pages/Dashboard/pages/Registration/Registration";
 import Devices from "./pages/Dashboard/pages/Devices/Devices";

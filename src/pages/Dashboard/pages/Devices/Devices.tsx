@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import IDevice from '@/interfaces/IDevice'
-import useMenageStorage from '@/hooks/useMenageStorage'
+import useMenageUser from '@/hooks/useMenageUser'
 import AddButton from './components/AddButton'
 import ListCard from '@/components/ListCard'
 import useMenageDevices from '@/hooks/useMenageDevices'
@@ -8,7 +8,7 @@ import useMenageDevices from '@/hooks/useMenageDevices'
 const Devices = () => {
   const [update, setUpdate] = useState<number>(0)
 
-  const { getCurrentUserData } = useMenageStorage()
+  const { getCurrentUserData } = useMenageUser()
 
   const { editDevice, addDevice, deleteDevice } = useMenageDevices()
 

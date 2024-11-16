@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import useAuth from "@/hooks/useAuth";
-import useMenageStorage from "@/hooks/useMenageStorage";
+import useMenageUser from "@/hooks/useMenageUser";
 import IUser from "@/interfaces/IUser";
 
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -13,7 +13,7 @@ const Login = () => {
   const [email, setEmail] = useState("henrique@gmail.com");
   const [password, setPassword] = useState("123");
 
-  const { getUsers } = useMenageStorage();
+  const { getUsers } = useMenageUser();
 
   const { setAuthUser } = useAuth()
 

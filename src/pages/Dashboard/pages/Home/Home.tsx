@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import useMenageStorage from '@/hooks/useMenageStorage'
+import useMenageUser from '@/hooks/useMenageUser'
 import { IRegistration } from '@/interfaces/IRegistration'
 import { useEffect, useState } from 'react'
 import WattExpenditureGraph from './components/WattExpenditureGraph'
 import IDevice from '@/interfaces/IDevice'
 
 const DashboardHome = () => {
-  const { getCurrentUserData } = useMenageStorage()
+  const { getCurrentUserData } = useMenageUser()
 
   const [devices, setDevices] = useState<IDevice[]>([])
   const [registrations, setRegistrations] = useState<IRegistration[]>([])
@@ -18,7 +18,7 @@ const DashboardHome = () => {
   }, [])
 
   return (
-    <div className='p-5'>
+    <div className='p-8'>
       <Card>
         <CardHeader>
           <CardTitle>Bem vindo, {getCurrentUserData().name}!</CardTitle>
