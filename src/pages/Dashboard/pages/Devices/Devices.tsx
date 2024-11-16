@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
-import DeviceCard from './components/DeviceCard'
 import IDevice from '@/interfaces/IDevice'
 import useMenageStorage from '@/hooks/useMenageStorage'
 import AddButton from './components/AddButton'
 import ListCard from '@/components/ListCard'
+import useMenageDevices from '@/hooks/useMenageDevices'
 
 const Devices = () => {
   const [update, setUpdate] = useState<number>(0)
 
   const { getCurrentUserData } = useMenageStorage()
+
+  const { editDevice, addDevice, deleteDevice } = useMenageDevices()
 
   const [deviceList, setDeviceList] = useState<IDevice[]>([])
 
@@ -19,25 +21,36 @@ const Devices = () => {
     }
   }, [update])
 
+  const handleSubmitDevice = (device: IDevice) => {
+    addDevice(getCurrentUserData().id, device)
+    setUpdate(prev => prev + 1)
+  }
+
+  const handleEditDevice = (device: IDevice) => {
+    editDevice(getCurrentUserData().id, device)
+    setUpdate(prev => prev + 1)
+  }
+  const handleDeleteDevice = (deviceId: string) => {
+    deleteDevice(getCurrentUserData().id, deviceId)
+    setUpdate(prev => prev + 1)
+  }
+
   return (
     <div className='w-full p-8 flex flex-col items-center gap-4'>
-      <AddButton setUpdate={setUpdate} />
-      
-      {deviceList.map((device: IDevice, index: number) => (
+      <AddButton handleAdd={handleSubmitDevice} />
 
-        <ListCard 
+      {deviceList.map((device: IDevice, index: number) => (
+        <ListCard
+          type='device'
+          key={index}
           title={device.name}
           description={device.description}
           content={device.wattsPerHour}
           icon={device.icon}
+          itemId={device.id}
+          handleEdit={handleEditDevice}
+          handleDelete={handleDeleteDevice}
         />
-
-        // <DeviceCard
-        //   editAndDelete
-        //   setUpdate={() => setUpdate(prev => prev + 1)}
-        //   device={device}
-        //   key={index}
-        // />
       ))}
 
       {deviceList.length === 0 && (
@@ -50,7 +63,6 @@ const Devices = () => {
           </p>
         </div>
       )}
-
     </div>
   )
 }

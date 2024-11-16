@@ -11,12 +11,13 @@ import {
 
 import { Plus } from 'lucide-react'
 import DeviceForm from './DeviceForm'
+import IDevice from '@/interfaces/IDevice'
 
 interface AddButtonProps {
-  setUpdate: React.Dispatch<React.SetStateAction<number>>
+  handleAdd: (device: IDevice) => void
 }
 
-const AddButton = ({ setUpdate }: AddButtonProps) => {
+const AddButton = ({ handleAdd }: AddButtonProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -32,7 +33,7 @@ const AddButton = ({ setUpdate }: AddButtonProps) => {
             Aqui você pode adicionar um novo dispositivo à lista.
           </DialogDescription>
         </DialogHeader>
-        <DeviceForm setUpdate={() => setUpdate(prev => prev + 1)} />
+        <DeviceForm handleAdd={handleAdd} />
       </DialogContent>
     </Dialog>
   )

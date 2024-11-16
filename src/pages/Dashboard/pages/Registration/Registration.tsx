@@ -2,15 +2,12 @@ import useMenageStorage from '@/hooks/useMenageStorage'
 import IDevice from '@/interfaces/IDevice'
 import { IRegistration } from '@/interfaces/IRegistration'
 import { useEffect, useState } from 'react'
-import uniqid from 'uniqid'
 import AddButton from './components/AddButton'
-import RegistrationCard from './components/RegistrationCard'
+import ListCard from '@/components/ListCard'
+import useMenageRegistration from '@/hooks/useMenageRegistration'
 
 const Registration = () => {
-  const { getCurrentUserData, addRegistration } = useMenageStorage()
-
-  const [timeUsed, setTimeUsed] = useState('00:15')
-  const [selected, setSelected] = useState('')
+  const { getCurrentUserData } = useMenageStorage()
 
   const [registrations, setRegistrations] = useState<IRegistration[]>([])
 
@@ -18,6 +15,7 @@ const Registration = () => {
 
   const [update, setUpdate] = useState<number>(0)
 
+  const { addRegistration } = useMenageRegistration()
 
   const updateData = () => {
     const user = getCurrentUserData()
@@ -27,19 +25,14 @@ const Registration = () => {
     }
   }
 
-  const handleAddSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const registration = {
-      timeUsed,
-      date: new Date().toISOString(),
-      deviceId: selected,
-      id: uniqid()
-    }
-
+  const handleSubmitRegistration = (registration: IRegistration) => {
     addRegistration(getCurrentUserData().id, registration)
-
     setUpdate(prev => prev + 1)
+  }
+
+  const convertTimeToFloat = (time: string) => {
+    const [hours, minutes] = time.split(':').map(Number)
+    return hours + minutes / 60
   }
 
   useEffect(() => {
@@ -48,7 +41,7 @@ const Registration = () => {
 
   return (
     <div className='w-full p-8 flex flex-col items-center gap-4'>
-      {deviceList.length === 0 ? (
+      {deviceList.length === 0 && registrations.length === 0 ? (
         <div className='text-center flex flex-col gap-4'>
           <h1 className='text-2xl font-bold text-gray-800'>
             Nenhum dispositivo cadastrado
@@ -59,26 +52,25 @@ const Registration = () => {
         </div>
       ) : (
         <>
-          <AddButton
-            setSelectedDevice={setSelected}
-            selectedDevice={selected}
-            setTimeUsed={setTimeUsed}
-            timeUsed={timeUsed}
-            handleSubmit={handleAddSubmit}
-            
-            deviceList={deviceList}
-          />
+          {deviceList.length != 0 && (
+            <AddButton handleAdd={handleSubmitRegistration} />
+          )}
 
           {registrations.map((registration: IRegistration, index: number) => {
-            const device = deviceList.find(
-              (device: IDevice) => device.id === registration.deviceId
-            )!
-
             return (
-              <RegistrationCard
+              <ListCard
+                type='registration'
                 key={index}
-                device={device}
-                registration={registration}
+                title={registration.deviceName}
+                description={new Date(registration.date).toLocaleString()}
+                content={
+                  registration.deviceWattsPerHour *
+                  convertTimeToFloat(registration.timeUsed)
+                }
+                icon={registration.deviceIcon}
+                itemId={registration.id}
+                // handleEdit={handleEditDevice}
+                // handleDelete={handleDeleteDevice}
               />
             )
           })}

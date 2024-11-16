@@ -1,15 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { DialogClose, DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button'
+import { DialogClose, DialogFooter } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import useMenageStorage from "@/hooks/useMenageStorage";
-import IDevice from "@/interfaces/IDevice";
+  SelectValue
+} from '@/components/ui/select'
+import IDevice from '@/interfaces/IDevice'
 import {
   AirVent,
   Fan,
@@ -18,108 +17,102 @@ import {
   Microwave,
   Refrigerator,
   Tv,
-  WashingMachine,
-} from "lucide-react";
-import { FormEvent, useState } from "react";
-import uniqid from "uniqid";
+  WashingMachine
+} from 'lucide-react'
+import { FormEvent, useState } from 'react'
+import uniqid from 'uniqid'
 
 export const devices = [
-  { value: "microwave", name: "Microondas", icon: Microwave },
-  { value: "television", name: "Televisão", icon: Tv },
-  { value: "refrigerator", name: "Geladeira", icon: Refrigerator },
-  { value: "washing_machine", name: "Máquina de lavar", icon: WashingMachine },
-  { value: "air_conditioner", name: "Ar condicionado", icon: AirVent },
-  { value: "fan", name: "Ventilador", icon: Fan },
-  { value: "computer", name: "Computador", icon: LaptopMinimal },
-  { value: "lamp", name: "Lâmpada", icon: LampCeiling },
-];
+  { value: 'microwave', name: 'Microondas', icon: Microwave },
+  { value: 'television', name: 'Televisão', icon: Tv },
+  { value: 'refrigerator', name: 'Geladeira', icon: Refrigerator },
+  { value: 'washing_machine', name: 'Máquina de lavar', icon: WashingMachine },
+  { value: 'air_conditioner', name: 'Ar condicionado', icon: AirVent },
+  { value: 'fan', name: 'Ventilador', icon: Fan },
+  { value: 'computer', name: 'Computador', icon: LaptopMinimal },
+  { value: 'lamp', name: 'Lâmpada', icon: LampCeiling }
+]
 
 interface DeviceFormProps {
-  setUpdate: () => void;
-  device?: IDevice;
+  device?: IDevice
+  handleAdd?: (device: IDevice) => void
+  handleEdit?: (device: IDevice) => void
 }
 
-const DeviceForm = ({ setUpdate, device }: DeviceFormProps) => {
-  const [name, setName] = useState(device ? device.name : "");
+const DeviceForm = ({ device, handleEdit, handleAdd }: DeviceFormProps) => {
+  const [name, setName] = useState(device ? device.name : '')
   const [description, setDescription] = useState(
-    device ? device.description : ""
-  );
+    device ? device.description : ''
+  )
   const [wattsPerHour, setWattsPerHour] = useState(
     device ? device.wattsPerHour : 0
-  );
-  const [icon, setIcon] = useState(device ? device.icon : "");
-
-  // const { updateItem } = useLocalStorage("deviceList");
-
-  const { addDevice, getCurrentUserData, updateDevice } = useMenageStorage();
-
+  )
+  const [icon, setIcon] = useState(device ? device.icon : '')
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const userId = getCurrentUserData().id;
-
-    if (device) {
+    if (handleEdit && device) {
       const newDevice = {
         name,
         description,
         wattsPerHour,
         icon,
-        id: device.id,
-      };
-      updateDevice(userId, newDevice);
-    } else {
+        id: device.id
+      }
+
+      handleEdit(newDevice)
+
+    } else if (handleAdd) {
       const newDevice = {
         name,
         description,
         wattsPerHour,
         icon,
-        id: uniqid(),
-      };
-      addDevice(userId, newDevice);
+        id: uniqid()
+      }
+      handleAdd(newDevice)
     }
-
-    setUpdate();
-  };
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
       <Input
         required
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Nome do dispositivo"
+        onChange={e => setName(e.target.value)}
+        placeholder='Nome do dispositivo'
         value={name}
       />
 
       <Input
         required
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Descrição do dispositivo"
+        onChange={e => setDescription(e.target.value)}
+        placeholder='Descrição do dispositivo'
         value={description}
       />
 
       <Input
         required
-        onChange={(e) => setWattsPerHour(Number(e.target.value))}
-        type="number"
-        placeholder="Consumo em watts por hora"
+        onChange={e => setWattsPerHour(Number(e.target.value))}
+        type='number'
+        placeholder='Consumo em watts por hora'
         value={wattsPerHour}
       />
 
-      <Select required onValueChange={(value) => setIcon(value)} value={icon}>
+      <Select required onValueChange={value => setIcon(value)} value={icon}>
         <SelectTrigger>
-          <SelectValue placeholder="Icone" />
+          <SelectValue placeholder='Icone' />
         </SelectTrigger>
         <SelectContent>
           {devices.map((device, index) => (
             <SelectItem
-              className="flex flex-row"
+              className='flex flex-row'
               key={index}
               value={device.value}
             >
-              <div className="flex items-center gap-2">
+              <div className='flex items-center gap-2'>
                 <device.icon />
-                <span className="font-bold">{device.name}</span>
+                <span className='font-bold'>{device.name}</span>
               </div>
             </SelectItem>
           ))}
@@ -127,21 +120,19 @@ const DeviceForm = ({ setUpdate, device }: DeviceFormProps) => {
       </Select>
 
       <DialogFooter>
-
         {!device && (
           <DialogClose asChild>
-            <Button type="submit">Adicionar dispositivo</Button>
+            <Button type='submit'>Adicionar dispositivo</Button>
           </DialogClose>
         )}
         {device && (
           <DialogClose asChild>
-            <Button type="submit">Editar dispositivo</Button>
+            <Button type='submit'>Editar dispositivo</Button>
           </DialogClose>
         )}
-
       </DialogFooter>
     </form>
-  );
-};
+  )
+}
 
-export default DeviceForm;
+export default DeviceForm

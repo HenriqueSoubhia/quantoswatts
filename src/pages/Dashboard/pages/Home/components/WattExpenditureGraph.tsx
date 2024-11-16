@@ -30,11 +30,9 @@ const WattExpenditureGraph = ({registrations,devices}:IWattExpenditureGraph) => 
   const getMonthRegistration = () => {
     const wattsPerMonth: { month: string, watts: number }[] = []
 
-
     registrations.forEach((registration: IRegistration) => {
       const registrationDate = new Date(registration.date)
       const month = registrationDate.toLocaleDateString('default', { month: 'long' });
-
 
       if (!wattsPerMonth.find(monthPerMonth => monthPerMonth.month === month)) {
         wattsPerMonth.push({ month, watts: 0 })
@@ -43,6 +41,8 @@ const WattExpenditureGraph = ({registrations,devices}:IWattExpenditureGraph) => 
       const device = devices.find((device: IDevice) => device.id === registration.deviceId);
       if (device) {
         wattsPerMonth.find(wattsPerMonth => wattsPerMonth.month === month)!.watts += device.wattsPerHour * convertTimeToFloat(registration.timeUsed)
+      }else{
+        wattsPerMonth.find(wattsPerMonth => wattsPerMonth.month === month)!.watts += registration.deviceWattsPerHour * convertTimeToFloat(registration.timeUsed)
       }
 
     });

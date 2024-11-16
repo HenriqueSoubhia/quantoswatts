@@ -2,27 +2,56 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { devices } from '@/pages/Dashboard/pages/Devices/components/DeviceForm'
+import DeviceForm, {
+  devices
+} from '@/pages/Dashboard/pages/Devices/components/DeviceForm'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from './ui/dialog'
+import { Button } from './ui/button'
+import { Ban, Edit } from 'lucide-react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from './ui/alert-dialog'
 
 interface ListCardProps {
+  type: 'device' | 'registration'
   title: string
   description: string
-  content: React.ReactNode
-  icon: React.ReactNode
-  handleDelete?: () => void
-  handleEdit?: () => void
+  content: string | number
+  icon: string
+  itemId: string
+  handleDelete?: (item: any) => void
+  handleEdit?: (item: any) => void
 }
 
-// nome / nome
-// descricao / timeUsed
-// wattsPerHour / watts total
-// icon / icon
-
-const ListCard = ({ title, description, content, icon }: ListCardProps) => {
-
+const ListCard = ({
+  type,
+  title,
+  description,
+  content,
+  icon,
+  itemId,
+  handleDelete,
+  handleEdit
+}: ListCardProps) => {
   const Icon = devices.filter(item => item.value === icon)[0].icon
 
   return (
@@ -37,8 +66,9 @@ const ListCard = ({ title, description, content, icon }: ListCardProps) => {
         </CardDescription>
         <p className='text-lg font-medium'>{content}Wh</p>
       </CardContent>
-      {/* {editAndDelete && (
-        <CardFooter className='flex justify-end flex-1 p-4 gap-2'>
+
+      <CardFooter className='flex justify-end flex-1 p-4 gap-2'>
+        {handleEdit && (
           <Dialog>
             <DialogTrigger asChild>
               <Button variant='outline' size='icon'>
@@ -48,18 +78,28 @@ const ListCard = ({ title, description, content, icon }: ListCardProps) => {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Editar dispositivo</DialogTitle>
+                <DialogTitle>Editar item</DialogTitle>
                 <DialogDescription>
-                  Aqui você pode editar um dispositivo da lista.
+                  Aqui você pode editar um item da lista.
                 </DialogDescription>
               </DialogHeader>
-              <DeviceForm
-                setUpdate={() => setUpdate && setUpdate()}
-                device={device}
-              />
+              {type === 'device' && (
+                <DeviceForm
+                  handleEdit={handleEdit}
+                  device={{
+                    description: description,
+                    icon: icon,
+                    id: itemId,
+                    name: title,
+                    wattsPerHour: Number(content)
+                  }}
+                />
+              )}
             </DialogContent>
           </Dialog>
+        )}
 
+        {handleDelete && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant='destructive' size='icon'>
@@ -72,21 +112,21 @@ const ListCard = ({ title, description, content, icon }: ListCardProps) => {
                 <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
                 <AlertDialogDescription>
                   Isso é irreversível e deletará todos os dados relacionados a
-                  <span className='font-bold'> {device.name}</span>.
+                  <span className='font-bold'> {title}</span>.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancelar</AlertDialogCancel>
                 <Button asChild variant='destructive'>
-                  <AlertDialogAction onClick={handleDelete}>
+                  <AlertDialogAction onClick={() => handleDelete(itemId)}>
                     Continuar
                   </AlertDialogAction>
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-        </CardFooter>
-      )} */}
+        )}
+      </CardFooter>
     </Card>
   )
 }

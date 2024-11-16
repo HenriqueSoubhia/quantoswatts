@@ -3,4 +3,7 @@ export interface IRegistration{
     date: string;
     deviceId: string;
     id:string
+    deviceName: string
+    deviceWattsPerHour: number
+    deviceIcon: string
 }
