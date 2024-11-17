@@ -36,7 +36,7 @@ const Devices = () => {
   }
 
   return (
-    <div className='w-full p-8 flex flex-col items-center gap-4'>
+    <div className='w-full p-4 md:p-8  flex flex-col items-center gap-4'>
       <AddButton handleAdd={handleSubmitDevice} />
 
       {deviceList.map((device: IDevice, index: number) => (

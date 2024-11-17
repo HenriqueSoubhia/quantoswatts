@@ -29,7 +29,7 @@ const Settings = () => {
   }, [update])
 
   return (
-    <div className='p-8'>
+    <div className='p-4 md:p-8 '>
       <h1>Configurações</h1>
 
       {user && (

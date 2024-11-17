@@ -40,7 +40,7 @@ const Registration = () => {
   }, [update])
 
   return (
-    <div className='w-full p-8 flex flex-col items-center gap-4'>
+    <div className='w-full p-4 md:p-8  flex flex-col items-center gap-4'>
       {deviceList.length === 0 && registrations.length === 0 ? (
         <div className='text-center flex flex-col gap-4'>
           <h1 className='text-2xl font-bold text-gray-800'>

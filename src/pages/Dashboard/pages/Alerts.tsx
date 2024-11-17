@@ -8,7 +8,7 @@ const Alerts = () => {
   const [user, setUser] = useState(getCurrentUserData())
 
   return (
-    <div className='w-full p-8 flex flex-col items-center gap-4'>
+    <div className='w-full p-4 md:p-8 flex flex-col items-center gap-4'>
       {user.alerts &&
         user.alerts.map(alert => (
           <ListCard
