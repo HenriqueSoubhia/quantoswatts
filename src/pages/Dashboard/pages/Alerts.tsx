@@ -9,7 +9,6 @@ const Alerts = () => {
 
   return (
     <div className='w-full p-8 flex flex-col items-center gap-4'>
-
       {user.alerts &&
         user.alerts.map(alert => (
           <ListCard
@@ -22,6 +21,14 @@ const Alerts = () => {
             type='alert'
           />
         ))}
+
+      {!user.alerts && (
+        <div className='w-full flex flex-col items-center gap-4'>
+          <h1 className='text-2xl font-bold text-gray-800'>
+            Nenhum alerta cadastrado
+          </h1>
+        </div>
+      )}
     </div>
   )
 }

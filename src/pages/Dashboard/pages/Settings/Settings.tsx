@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Houses from './components/Houses'
 import IHouse from '@/interfaces/IHouse'
 import { Toaster } from '@/components/ui/toaster'
+import { useToast } from '@/hooks/use-toast'
 
 const Settings = () => {
   const { createHouse, getCurrentUserData } = useMenageUser()
@@ -12,8 +13,14 @@ const Settings = () => {
 
   const [update, setUpdate] = useState(0)
 
+  const { toast } = useToast()
+
   const handleCreateHouse = (house: IHouse) => {
     createHouse(house)
+    toast({
+      title: 'Casa criada',
+      description: 'Sua casa foi criada com sucesso'
+    })
     setUpdate(prev => prev + 1)
   }
 
@@ -25,7 +32,13 @@ const Settings = () => {
     <div className='p-8'>
       <h1>Configurações</h1>
 
-      {user && <Houses setUpdate={setUpdate} handleCreateHouse={handleCreateHouse} user={user} />}
+      {user && (
+        <Houses
+          setUpdate={setUpdate}
+          onCreateHouse={handleCreateHouse}
+          user={user}
+        />
+      )}
 
       <Toaster />
     </div>
