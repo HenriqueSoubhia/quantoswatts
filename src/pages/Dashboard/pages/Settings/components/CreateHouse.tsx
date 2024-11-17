@@ -5,6 +5,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -31,8 +32,10 @@ const CreateHouse = ({
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>Criar Casa</DialogHeader>
-        <DialogDescription>Escolha um nome para sua casa</DialogDescription>
+        <DialogHeader>
+          <DialogTitle>Criar Casa</DialogTitle>
+          <DialogDescription>Escolha um nome para sua casa</DialogDescription>
+        </DialogHeader>
         <form className='flex flex-col gap-4' onSubmit={handleCreateHouse}>
           <Input
             placeholder='Nome da Casa'

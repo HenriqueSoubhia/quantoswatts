@@ -32,7 +32,7 @@ import {
 } from './ui/alert-dialog'
 
 interface ListCardProps {
-  type: 'device' | 'registration'
+  type: 'device' | 'registration' | 'alert'
   title: string
   description: string
   content: string | number
@@ -64,7 +64,7 @@ const ListCard = ({
         <CardDescription className='text-gray-500'>
           {description}
         </CardDescription>
-        <p className='text-lg font-medium'>{content}Wh</p>
+        <p className='text-lg font-medium'>{content}</p>
       </CardContent>
 
       <CardFooter className='flex justify-end flex-1 p-4 gap-2'>

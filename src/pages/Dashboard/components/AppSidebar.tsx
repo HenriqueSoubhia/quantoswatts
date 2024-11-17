@@ -27,6 +27,8 @@ import {
   User2
 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Badge } from "@/components/ui/badge"
+
 
 const items = [
   {
@@ -43,7 +45,7 @@ const items = [
     title: 'Registro de Consumo',
     url: '/dashboard/registro',
     icon: FileStack
-  }
+  },
   // {
   //     title: "Relatórios e Gráficos",
   //     url: "/dashboard/relatorios",
@@ -54,11 +56,12 @@ const items = [
   //     url: "/dashboard/configuracoes",
   //     icon: Settings,
   // },
-  // {
-  //     title: "Alertas e Recomendações",
-  //     url: "/dashboard/alertas",
-  //     icon: CircleAlert,
-  // },
+  {
+      title: "Alertas e Recomendações",
+      url: "/dashboard/alertas",
+      icon: CircleAlert,
+      alert: true
+  },
 ]
 export function AppSidebar () {
   const { logoff, getCurrentUserData } = useMenageUser()
@@ -69,7 +72,7 @@ export function AppSidebar () {
 
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className='bg-white'>
         <SidebarGroup>
           <SidebarGroupLabel>Quantos Watts?</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -80,6 +83,7 @@ export function AppSidebar () {
                     <Link to={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
+                      {(item.alert && user.alerts) && <Badge >{user.alerts.length}</Badge>}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -88,7 +92,7 @@ export function AppSidebar () {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className='bg-white'>
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>

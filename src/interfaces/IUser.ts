@@ -1,3 +1,4 @@
+import IAlert from "./IAlert";
 import IDevice from "./IDevice";
 import IHouse from "./IHouse";
 import { IRegistration } from "./IRegistration";
@@ -10,4 +11,5 @@ export default interface IUser {
   devices: IDevice[];
   registrations: IRegistration[];
   houses?: IHouse[];
+  alerts?: IAlert[];
 }

@@ -2,6 +2,7 @@ import IHouse from '@/interfaces/IHouse'
 import useLocalStorage from './useLocalStorage'
 import IUser from '@/interfaces/IUser'
 import { useNavigate } from 'react-router-dom'
+import IAlert from '@/interfaces/IAlert'
 
 const useMenageUser = () => {
   const { saveLocalStorage, getLocalStorage } = useLocalStorage()
@@ -11,6 +12,12 @@ const useMenageUser = () => {
   const getUsers = (): IUser[] => {
     const users: IUser[] = getLocalStorage('users') || []
     return users
+  }
+
+  const getUserByEmail = (email: string) => {
+    const users = getUsers()
+    const user = users.find(item => item.email === email)
+    return user
   }
 
   const getUserById = (id: string) => {
@@ -46,7 +53,7 @@ const useMenageUser = () => {
     }
   }
 
-  const updateUser = (user: IUser) => {
+  const updateUsers = (user: IUser) => {
     const users: IUser[] = getLocalStorage('users')
 
     if (users) {
@@ -64,7 +71,30 @@ const useMenageUser = () => {
       user.houses = []
     }
 
-    updateUser({ ...user, houses: [...user.houses, newHouse] })
+    updateUsers({ ...user, houses: [...user.houses, newHouse] })
+  }
+
+  const addHouseMember = (houseId: string, userId: string) => {
+    const user = getCurrentUserData()
+
+    const house = user.houses?.find(item => item.id === houseId)
+
+    if (house) {
+      house.members.push(userId)
+      updateUsers(user)
+    }
+  }
+
+  const createAlert = (email: string, newalert: IAlert) => {
+    const user = getUsers().find(item => item.email === email)
+
+    if (user) {
+      if (!user.alerts) {
+        user.alerts = []
+      }
+
+      updateUsers({ ...user, alerts: [...user.alerts, newalert] })
+    }
   }
 
   return {
@@ -74,7 +104,10 @@ const useMenageUser = () => {
     getUsers,
     logoff,
     createHouse,
-    getUserById
+    getUserById,
+    createAlert,
+    getUserByEmail,
+    addHouseMember
   }
 }
 

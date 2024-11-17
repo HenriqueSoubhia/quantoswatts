@@ -3,6 +3,7 @@ import IUser from '@/interfaces/IUser'
 import { useEffect, useState } from 'react'
 import Houses from './components/Houses'
 import IHouse from '@/interfaces/IHouse'
+import { Toaster } from '@/components/ui/toaster'
 
 const Settings = () => {
   const { createHouse, getCurrentUserData } = useMenageUser()
@@ -24,7 +25,9 @@ const Settings = () => {
     <div className='p-8'>
       <h1>Configurações</h1>
 
-      {user && <Houses handleCreateHouse={handleCreateHouse} user={user} />}
+      {user && <Houses setUpdate={setUpdate} handleCreateHouse={handleCreateHouse} user={user} />}
+
+      <Toaster />
     </div>
   )
 }

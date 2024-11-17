@@ -45,7 +45,7 @@ const Devices = () => {
           key={index}
           title={device.name}
           description={device.description}
-          content={device.wattsPerHour}
+          content={device.wattsPerHour + "Wh"}
           icon={device.icon}
           itemId={device.id}
           handleEdit={handleEditDevice}

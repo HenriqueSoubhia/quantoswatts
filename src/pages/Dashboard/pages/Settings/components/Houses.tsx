@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import IUser from '@/interfaces/IUser'
 import {
   Accordion,
@@ -7,32 +6,32 @@ import {
   AccordionTrigger
 } from '@/components/ui/accordion'
 import IHouse from '@/interfaces/IHouse'
-import { Plus, Users } from 'lucide-react'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
 import { FormEvent, useState } from 'react'
 import uniqid from 'uniqid'
 import useMenageUser from '@/hooks/useMenageUser'
 import AddHouseMember from './AddHouseMember'
 import CreateHouse from './CreateHouse'
+import { useToast } from '@/hooks/use-toast'
 
 interface HouseProps {
   user: IUser
   handleCreateHouse: (house: IHouse) => void
+  setUpdate?: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Houses = ({ user, handleCreateHouse }: HouseProps) => {
-  const { getUserById } = useMenageUser()
+const Houses = ({ user, handleCreateHouse, setUpdate }: HouseProps) => {
+  const {
+    getUserById,
+    getUserByEmail,
+    createAlert,
+    addHouseMember,
+    getCurrentUserData
+  } = useMenageUser()
 
   const [houseName, setHouseName] = useState('')
+
+  const { toast } = useToast()
 
   const handleCreateHouseSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -45,6 +44,52 @@ const Houses = ({ user, handleCreateHouse }: HouseProps) => {
     }
 
     handleCreateHouse(newHouse)
+  }
+
+  const handleAddHouseMember = (
+    event: FormEvent,
+    email: string,
+    houseId: string
+  ) => {
+    event.preventDefault()
+
+    const user = getUserByEmail(email)
+
+    const currentUser = getCurrentUserData()
+
+    if (!user) {
+      toast({
+        title: 'Usuario não encontrado',
+        description: 'Por favor, insira um email valido',
+        variant: 'destructive'
+      })
+      return
+    }
+
+    if (currentUser.houses?.find(house => house.members.includes(user.id))) {
+      toast({
+        title: 'Usuario já adicionado',
+        description: 'O usuario já foi adicionado a essa casa',
+        variant: 'destructive'
+      })
+      return
+    }
+
+    addHouseMember(houseId, user.id)
+
+    createAlert(email, {
+      id: uniqid(),
+      date: new Date().toISOString(),
+      description: `Você foi adicionado a casa de ${currentUser.name}`,
+      title: 'Usuario Adicionado'
+    })
+
+    toast({
+      title: 'Usuario Adicionado',
+      description: `O usuario ${user.name} foi adicionado a casa`
+    })
+
+    if (setUpdate) setUpdate(prev => prev + 1)
   }
 
   if (!user.houses) {
@@ -80,7 +125,10 @@ const Houses = ({ user, handleCreateHouse }: HouseProps) => {
                       )
                     })}
                   </ul>
-                  <AddHouseMember />
+                  <AddHouseMember
+                    houseId={house.id}
+                    handleAddmenber={handleAddHouseMember}
+                  />
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
