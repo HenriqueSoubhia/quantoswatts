@@ -35,7 +35,7 @@ interface ListCardProps {
   type: 'device' | 'registration' | 'alert'
   title: string
   description: string
-  content: string | number
+  content: string 
   icon: string
   itemId: string
   handleDelete?: (item: any) => void
@@ -91,7 +91,7 @@ const ListCard = ({
                     icon: icon,
                     id: itemId,
                     name: title,
-                    wattsPerHour: Number(content)
+                    wattsPerHour: Number(content.replace('Wh', ''))
                   }}
                 />
               )}

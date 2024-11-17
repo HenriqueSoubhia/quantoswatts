@@ -62,7 +62,6 @@ const DeviceForm = ({ device, handleEdit, handleAdd }: DeviceFormProps) => {
       }
 
       handleEdit(newDevice)
-
     } else if (handleAdd) {
       const newDevice = {
         name,
