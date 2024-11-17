@@ -6,6 +6,7 @@ import WattExpenditureGraph from './components/WattExpenditureGraph'
 import DailyWattExpenditureGraph from './components/DailyWattExpenditureGraph'
 import IDevice from '@/interfaces/IDevice'
 import AverageDailyExpenditureGraph from './components/AverageDailyExpenditureGraph'
+import DeviceConsumptionGraph from './components/DeviceConsumptionGraph'
 
 const DashboardHome = () => {
   const { getCurrentUserData } = useMenageUser()
@@ -62,6 +63,21 @@ const DashboardHome = () => {
           {registrations.length > 0 && devices.length > 0 && (
             <>
               <AverageDailyExpenditureGraph
+                devices={devices}
+                registrations={registrations}
+              />
+            </>
+          )}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Consumo medio por aparelho</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {registrations.length > 0 && devices.length > 0 && (
+            <>
+              <DeviceConsumptionGraph
                 devices={devices}
                 registrations={registrations}
               />
