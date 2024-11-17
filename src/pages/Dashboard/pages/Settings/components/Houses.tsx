@@ -7,7 +7,7 @@ import {
   AccordionTrigger
 } from '@/components/ui/accordion'
 import IHouse from '@/interfaces/IHouse'
-import { Users } from 'lucide-react'
+import { Plus, Users } from 'lucide-react'
 
 import {
   Dialog,
@@ -21,6 +21,8 @@ import { Input } from '@/components/ui/input'
 import { FormEvent, useState } from 'react'
 import uniqid from 'uniqid'
 import useMenageUser from '@/hooks/useMenageUser'
+import AddHouseMember from './AddHouseMember'
+import CreateHouse from './CreateHouse'
 
 interface HouseProps {
   user: IUser
@@ -47,53 +49,38 @@ const Houses = ({ user, handleCreateHouse }: HouseProps) => {
 
   if (!user.houses) {
     return (
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>
-            <Users />
-            Criar Casa
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>Criar Casa</DialogHeader>
-          <DialogDescription>Escolha um nome para sua casa</DialogDescription>
-          <form
-            className='flex flex-col gap-4'
-            onSubmit={handleCreateHouseSubmit}
-          >
-            <Input
-              placeholder='Nome da Casa'
-              value={houseName}
-              onChange={e => setHouseName(e.target.value)}
-            />
-
-            <DialogFooter>
-              <Button type='submit'>Criar Casa</Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+      <CreateHouse
+        handleCreateHouse={handleCreateHouseSubmit}
+        houseName={houseName}
+        setHouseName={setHouseName}
+      />
     )
   }
 
   return (
     <div>
-      <h2>Casas</h2>
+      <h2 className='text-4xl'>Casas</h2>
       <ul>
         {user.houses.map(house => (
           <li key={house.id}>
             <Accordion type='single' collapsible>
               <AccordionItem value='item-1'>
-                <AccordionTrigger>{house.name}</AccordionTrigger>
-                <AccordionContent>
-                  <h3>Membros</h3>
-                  <ul>
+                <AccordionTrigger className='text-lg font-semibold'>
+                  {house.name}
+                </AccordionTrigger>
+                <AccordionContent className=''>
+                  <h3 className='text-lg font-semibold'>Membros</h3>
+                  <ul className='list-disc pl-6'>
                     {house.members.map(member => {
                       const user = getUserById(member)
-                      return <li key={member}>{user?.name}</li>
+                      return (
+                        <li key={member} className='text-lg'>
+                          {user?.name}
+                        </li>
+                      )
                     })}
                   </ul>
-                  
+                  <AddHouseMember />
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
