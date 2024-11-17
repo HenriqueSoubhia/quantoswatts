@@ -1,7 +1,7 @@
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { Label } from "@/components/ui/label"
 import IDevice from "@/interfaces/IDevice"
-import { IRegistration } from "@/interfaces/IRegistration"
+import IRegistration  from "@/interfaces/IRegistration"
 import { useEffect, useState } from "react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
@@ -60,7 +60,7 @@ const WattExpenditureGraph = ({registrations,devices}:IWattExpenditureGraph) => 
   return (
     <div>
       <Label> Gasto de watts mensais</Label>
-      <ChartContainer config={chartConfig} className='w-full h-32'>
+      <ChartContainer config={chartConfig} className='w-full'>
         <BarChart accessibilityLayer data={monthWatts}>
           <CartesianGrid vertical={false} />
           <XAxis

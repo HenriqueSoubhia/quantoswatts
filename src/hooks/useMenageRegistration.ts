@@ -1,6 +1,6 @@
 import useLocalStorage from "./useLocalStorage";
 import IUser from "@/interfaces/IUser";
-import { IRegistration } from "@/interfaces/IRegistration";
+import IRegistration  from "@/interfaces/IRegistration";
 
 const useMenageRegistration = () => {
   const { saveLocalStorage, getLocalStorage } = useLocalStorage();

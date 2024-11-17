@@ -8,7 +8,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Plus } from 'lucide-react'
-import { IRegistration } from '@/interfaces/IRegistration'
+import IRegistration  from '@/interfaces/IRegistration'
 
 import RegistrationForm from './RegistrationForm'
 

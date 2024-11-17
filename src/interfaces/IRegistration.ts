@@ -1,4 +1,4 @@
-export interface IRegistration{
+export default interface IRegistration{
     timeUsed: string;
     date: string;
     deviceId: string;

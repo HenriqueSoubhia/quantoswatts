@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/select'
 import useMenageUser from '@/hooks/useMenageUser'
 import IDevice from '@/interfaces/IDevice'
-import { IRegistration } from '@/interfaces/IRegistration'
+import IRegistration  from '@/interfaces/IRegistration'
 import { FormEvent, useState } from 'react'
 import uniqid from 'uniqid'
 

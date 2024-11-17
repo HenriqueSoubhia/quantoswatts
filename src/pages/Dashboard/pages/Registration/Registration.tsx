@@ -1,6 +1,6 @@
 import useMenageUser from '@/hooks/useMenageUser'
 import IDevice from '@/interfaces/IDevice'
-import { IRegistration } from '@/interfaces/IRegistration'
+import IRegistration  from '@/interfaces/IRegistration'
 import { useEffect, useState } from 'react'
 import AddButton from './components/AddButton'
 import ListCard from '@/components/ListCard'
@@ -65,7 +65,7 @@ const Registration = () => {
                 description={new Date(registration.date).toLocaleString()}
                 content={
                   registration.deviceWattsPerHour *
-                  convertTimeToFloat(registration.timeUsed)
+                  convertTimeToFloat(registration.timeUsed) + "Wh"
                 }
                 icon={registration.deviceIcon}
                 itemId={registration.id}
