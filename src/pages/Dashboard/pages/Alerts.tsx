@@ -5,7 +5,7 @@ import { useState } from 'react'
 const Alerts = () => {
   const { getCurrentUserData } = useMenageUser()
 
-  const [user, setUser] = useState(getCurrentUserData())
+  const [user] = useState(getCurrentUserData())
 
   return (
     <div className='w-full p-4 md:p-8 flex flex-col items-center gap-4'>

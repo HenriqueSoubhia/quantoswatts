@@ -17,12 +17,10 @@ import {
 } from '@/components/ui/sidebar'
 import useMenageUser from '@/hooks/useMenageUser'
 import {
-  ChartNoAxesColumnDecreasing,
   ChevronUp,
   CircleAlert,
   FileStack,
   Home,
-  Settings,
   Smartphone,
   User2
 } from 'lucide-react'
