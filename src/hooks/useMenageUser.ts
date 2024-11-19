@@ -28,8 +28,8 @@ const useMenageUser = () => {
     return user;
   };
 
-  const getCurrentUserData = () => {
-    const user = getLocalStorage("user");
+  const getCurrentUserData = async() => {
+    const user = await getLocalStorage("user");
     const currentUser = getUsers().find((item) => item.id === user.id);
 
     return currentUser!;
@@ -71,8 +71,8 @@ const useMenageUser = () => {
     }
   };
 
-  const createHouse = (newHouse: IHouse) => {
-    const user = getCurrentUserData();
+  const createHouse = async(newHouse: IHouse) => {
+    const user = await getCurrentUserData();
 
     if (!user.houses) {
       user.houses = [];
@@ -81,8 +81,8 @@ const useMenageUser = () => {
     updateUsers({ ...user, houses: [...user.houses, newHouse] });
   };
 
-  const addHouseMember = (houseId: string, userId: string) => {
-    const user = getCurrentUserData();
+  const addHouseMember = async (houseId: string, userId: string) => {
+    const user =await getCurrentUserData();
 
     const house = user.houses?.find((item) => item.id === houseId);
 

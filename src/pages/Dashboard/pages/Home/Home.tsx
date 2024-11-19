@@ -15,17 +15,20 @@ const DashboardHome = () => {
   const [registrations, setRegistrations] = useState<IRegistration[]>([]);
 
   useEffect(() => {
-    const user = getCurrentUserData();
-    console.log(user);
-    setDevices(user.devices || []);
-    setRegistrations(user.registrations || []);
+    const init = async () => {
+      const user = await getCurrentUserData();
+
+      setDevices(user.devices || []);
+      setRegistrations(user.registrations || []);
+    };
+    init();
   }, []);
 
   return (
     <div className="p-4 md:p-8  grid grid-cols-1 md:grid-cols-2 gap-4">
       <Card>
         <CardHeader>
-          <CardTitle>Bem-vindo, {getCurrentUserData().name}!</CardTitle>
+          {/* <CardTitle>Bem-vindo, {getCurrentUserData().name}!</CardTitle> */}
         </CardHeader>
         <CardContent>
           {registrations.length > 0 && devices.length > 0 && (
