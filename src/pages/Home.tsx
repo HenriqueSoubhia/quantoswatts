@@ -8,7 +8,7 @@ const Home = () => {
   const user = getAuthUser()
 
   return (
-    <div className=' flex flex-col items-center justify-center bg-gray-50 p-4'>
+    <div className=' flex flex-col items-center justify-center p-4'>
       <h1 className='text-4xl font-bold mb-6 text-center'>
         Bem-vindo ao Quantos Watts?
       </h1>

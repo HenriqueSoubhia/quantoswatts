@@ -16,6 +16,7 @@ const Devices = () => {
 
   useEffect(() => {
     const user = getCurrentUserData()
+    console.log(user)
     if (user) {
       setDeviceList(user.devices)
     }
