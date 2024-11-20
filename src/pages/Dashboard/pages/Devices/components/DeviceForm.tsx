@@ -45,7 +45,7 @@ const DeviceForm = ({ device, handleEdit, handleAdd }: DeviceFormProps) => {
     device ? device.description : ''
   )
   const [wattsPerHour, setWattsPerHour] = useState(
-    device ? device.wattsPerHour : 0
+    device ? device.wattsPerHour : ''
   )
   const [icon, setIcon] = useState(device ? device.icon : '')
 
@@ -119,15 +119,19 @@ const DeviceForm = ({ device, handleEdit, handleAdd }: DeviceFormProps) => {
       </Select>
 
       <DialogFooter>
-        {!device && (
-          <DialogClose asChild>
-            <Button type='submit'>Adicionar dispositivo</Button>
-          </DialogClose>
-        )}
-        {device && (
-          <DialogClose asChild>
-            <Button type='submit'>Editar dispositivo</Button>
-          </DialogClose>
+        {name && description && wattsPerHour && icon && (
+          <>
+            {!device && (
+              <DialogClose asChild>
+                <Button type='submit'>Adicionar dispositivo</Button>
+              </DialogClose>
+            )}
+            {device && (
+              <DialogClose asChild>
+                <Button type='submit'>Editar dispositivo</Button>
+              </DialogClose>
+            )}
+          </>
         )}
       </DialogFooter>
     </form>

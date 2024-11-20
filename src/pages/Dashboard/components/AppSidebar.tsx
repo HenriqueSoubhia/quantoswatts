@@ -65,7 +65,7 @@ const items = [
 export function AppSidebar() {
   const { logoff, getCurrentUserData } = useMenageUser();
 
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser>(getCurrentUserData());
 
   useEffect(() => {
     const init = async () => {
