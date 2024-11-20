@@ -8,7 +8,7 @@ import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 const chartConfig = {
     watts: {
       label: "Watts",
-      color: "#2563eb",
+      color: "#5ADD75",
     },
   } satisfies ChartConfig
 

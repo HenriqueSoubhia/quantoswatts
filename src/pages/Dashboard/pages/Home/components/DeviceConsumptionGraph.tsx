@@ -13,7 +13,7 @@ import IRegistration from '@/interfaces/IRegistration'
 const chartConfig = {
     watts: {
       label: "Watts",
-      color: "#2563eb",
+      color: "#093566",
     },
   } satisfies ChartConfig
 
@@ -72,7 +72,7 @@ const DeviceConsumptionGraph = ({
   return (
     <div>
       <Label>Consumo de Energia por Aparelho</Label>
-      <ChartContainer config={chartConfig} className='w-full h-32'>
+      <ChartContainer config={chartConfig} className='w-full h-full'>
         <BarChart data={deviceConsumption}>
           <CartesianGrid vertical={false} />
           <XAxis dataKey='name' />

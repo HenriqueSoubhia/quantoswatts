@@ -43,17 +43,6 @@ const DashboardHome = () => {
 
       {registrations.length > 0 && devices.length > 0 && (
         <>
-          <Card>
-            <CardHeader>
-              <CardTitle>Consumo Diário de Energia</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <DailyWattExpenditureGraph
-                devices={devices}
-                registrations={registrations}
-              />
-            </CardContent>
-          </Card>
 
           <Card>
             <CardHeader>
