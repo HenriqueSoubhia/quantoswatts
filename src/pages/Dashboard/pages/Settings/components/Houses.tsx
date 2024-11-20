@@ -34,7 +34,7 @@ const Houses = ({ user, onCreateHouse, setUpdate }: HouseProps) => {
     onCreateHouse(newHouse)
   }
 
-  const handleAddHouseMember = (event: FormEvent, email: string, houseId: string) => {
+  const handleAddHouseMember = async(event: FormEvent, email: string, houseId: string) => {
     event.preventDefault()
     const user = getUserByEmail(email)
     const currentUser = getCurrentUserData()

@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast'
 const Settings = () => {
   const { createHouse, getCurrentUserData } = useMenageUser()
 
-  const [user, setUser] = useState<IUser>(getCurrentUserData())
+  const [user, setUser] = useState<IUser>()
 
   const [update, setUpdate] = useState(0)
 
@@ -25,7 +25,11 @@ const Settings = () => {
   }
 
   useEffect(() => {
-    setUser(getCurrentUserData())
+    const init = async () => {  
+      const user = getCurrentUserData()
+      setUser(user)
+    }
+    init
   }, [update])
 
   return (

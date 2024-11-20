@@ -16,7 +16,7 @@ const Devices = () => {
 
   useEffect(() => {
     const init = async () => {
-      const user = await getCurrentUserData();
+      const user =  getCurrentUserData();
 
       if (user) {
         setDeviceList(user.devices);
@@ -27,18 +27,18 @@ const Devices = () => {
   }, [update]);
 
   const handleSubmitDevice = async (device: IDevice) => {
-    const user = await getCurrentUserData();
+    const user =  getCurrentUserData();
     addDevice(user.id, device);
     setUpdate((prev) => prev + 1);
   };
 
   const handleEditDevice = async (device: IDevice) => {
-    const user = await getCurrentUserData();
+    const user =  getCurrentUserData();
     editDevice(user.id, device);
     setUpdate((prev) => prev + 1);
   };
   const handleDeleteDevice = async (deviceId: string) => {
-    const user = await getCurrentUserData();
+    const user =  getCurrentUserData();
     deleteDevice(user.id, deviceId);
     setUpdate((prev) => prev + 1);
   };

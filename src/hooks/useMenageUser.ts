@@ -28,8 +28,8 @@ const useMenageUser = () => {
     return user;
   };
 
-  const getCurrentUserData = async() => {
-    const user = await getLocalStorage("user");
+  const getCurrentUserData =() => {
+    const user =  getLocalStorage("user");
     const currentUser = getUsers().find((item) => item.id === user.id);
 
     return currentUser!;
@@ -82,7 +82,7 @@ const useMenageUser = () => {
   };
 
   const addHouseMember = async (houseId: string, userId: string) => {
-    const user =await getCurrentUserData();
+    const user = getCurrentUserData();
 
     const house = user.houses?.find((item) => item.id === houseId);
 

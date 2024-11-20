@@ -11,7 +11,8 @@ import {
 } from '@/components/ui/select'
 import useMenageUser from '@/hooks/useMenageUser'
 import IDevice from '@/interfaces/IDevice'
-import IRegistration  from '@/interfaces/IRegistration'
+import IRegistration from '@/interfaces/IRegistration'
+import IUser from '@/interfaces/IUser'
 import { FormEvent, useState } from 'react'
 import uniqid from 'uniqid'
 
@@ -31,8 +32,13 @@ const RegistrationForm = ({
   const [selectedDevice, setSelectedDevice] = useState('')
   const [timeUsed, setTimeUsed] = useState('00:15')
 
-  const handleSubmit = (e: FormEvent) => {
+  const [user, setUser] = useState<IUser | undefined>(undefined)
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+
+    const user = getCurrentUserData()
+    setUser(user)
 
     if (handleEdit && registration) {
       //   const newDevice = {
@@ -44,7 +50,7 @@ const RegistrationForm = ({
       //   }
       //   handleEdit(newDevice)
     } else if (handleAdd) {
-      const currentDevice = getCurrentUserData().devices.find(
+      const currentDevice = user.devices.find(
         device => device.id === selectedDevice
       )!
 
@@ -61,6 +67,8 @@ const RegistrationForm = ({
       handleAdd(newRegistration)
     }
   }
+
+  if (!user) return <div>Carregando...</div>
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
@@ -81,7 +89,7 @@ const RegistrationForm = ({
           <SelectValue placeholder='Selecione um dispositivo' />
         </SelectTrigger>
         <SelectContent>
-          {getCurrentUserData().devices.map((device: IDevice) => (
+          {user.devices.map((device: IDevice) => (
             <SelectItem key={device.id} value={device.id}>
               {device.name}
             </SelectItem>

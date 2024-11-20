@@ -69,7 +69,7 @@ export function AppSidebar() {
 
   useEffect(() => {
     const init = async () => {
-      const user = await getCurrentUserData();
+      const user = getCurrentUserData();
       setUser(user);
     };
 

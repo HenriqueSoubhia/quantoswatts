@@ -1,11 +1,22 @@
 import ListCard from '@/components/ListCard'
 import useMenageUser from '@/hooks/useMenageUser'
-import { useState } from 'react'
+import IUser from '@/interfaces/IUser'
+import { useEffect, useState } from 'react'
 
 const Alerts = () => {
   const { getCurrentUserData } = useMenageUser()
 
-  const [user] = useState(getCurrentUserData())
+  const [user, setUser] = useState<IUser>()
+
+  useEffect(()=>{
+    const init = async () => {
+      setUser( getCurrentUserData())
+    }
+
+    init()
+  },[])
+
+  if(!user) return <div>Carregando...</div>
 
   return (
     <div className='w-full p-4 md:p-8 flex flex-col items-center gap-4'>

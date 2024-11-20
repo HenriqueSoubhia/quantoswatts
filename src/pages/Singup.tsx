@@ -19,14 +19,14 @@ const Signup = () => {
 
   const { setAuthUser } = useAuth()
 
-  const [users] = useState(getUsers() || [])
-
   const navigate = useNavigate()
 
   const { toast } = useToast()
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const users = await getUsers()
 
     //caso tenha inputs em branco
     if (!password || !name || !email || !confirmPassword) {

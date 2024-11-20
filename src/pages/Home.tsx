@@ -26,7 +26,7 @@ const Home = () => {
         ) : (
           <>
             <Button asChild>
-              <a href='/cadastrat'>Criar Conta</a>
+              <a href='/cadastrar'>Criar Conta</a>
             </Button>
             <Button variant='outline' asChild>
               <a href='/entrar'>Entrar</a>
