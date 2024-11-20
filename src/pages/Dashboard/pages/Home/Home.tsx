@@ -29,16 +29,26 @@ const DashboardHome = () => {
         <CardHeader>
           <CardTitle>Bem-vindo, {user.name}</CardTitle>
         </CardHeader>
+        <CardContent>
+          {registrations.length > 0 && devices.length > 0 && (
+            <>
+              <WattExpenditureGraph
+                devices={devices}
+                registrations={registrations}
+              />
+            </>
+          )}
+        </CardContent>
       </Card>
 
       {registrations.length > 0 && devices.length > 0 && (
         <>
           <Card>
             <CardHeader>
-              <CardTitle>Consumo Mensal de Energia</CardTitle>
+              <CardTitle>Consumo Diário de Energia</CardTitle>
             </CardHeader>
             <CardContent>
-              <WattExpenditureGraph
+              <DailyWattExpenditureGraph
                 devices={devices}
                 registrations={registrations}
               />

@@ -32,7 +32,7 @@ const RegistrationForm = ({
   const [selectedDevice, setSelectedDevice] = useState('')
   const [timeUsed, setTimeUsed] = useState('00:15')
 
-  const [user, setUser] = useState<IUser | undefined>(undefined)
+  const [user, setUser] = useState<IUser>(getCurrentUserData())
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -68,7 +68,6 @@ const RegistrationForm = ({
     }
   }
 
-  if (!user) return <div>Carregando...</div>
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col gap-4'>

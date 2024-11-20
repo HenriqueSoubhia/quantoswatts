@@ -29,7 +29,7 @@ const Settings = () => {
       const user = getCurrentUserData()
       setUser(user)
     }
-    init
+    init()
   }, [update])
 
   return (

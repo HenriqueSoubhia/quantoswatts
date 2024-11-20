@@ -56,7 +56,7 @@ const DeviceForm = ({ device, handleEdit, handleAdd }: DeviceFormProps) => {
       const newDevice = {
         name,
         description,
-        wattsPerHour,
+        wattsPerHour: Number(wattsPerHour),
         icon,
         id: device.id
       }
@@ -66,7 +66,7 @@ const DeviceForm = ({ device, handleEdit, handleAdd }: DeviceFormProps) => {
       const newDevice = {
         name,
         description,
-        wattsPerHour,
+        wattsPerHour: Number(wattsPerHour),
         icon,
         id: uniqid()
       }

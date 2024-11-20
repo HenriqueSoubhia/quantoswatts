@@ -70,7 +70,7 @@ const AverageDailyExpenditureGraph = ({
   return (
     <div>
       <Label>Gasto Médio Diário (Watts)</Label>
-      <ChartContainer config={chartConfig} className='w-full h-32'>
+      <ChartContainer config={chartConfig} className='w-full h-full'>
         <BarChart data={dailyAverage}>
           <CartesianGrid vertical={false} />
           <XAxis dataKey='day' />
