@@ -15,16 +15,12 @@ const Devices = () => {
   const [deviceList, setDeviceList] = useState<IDevice[]>([]);
 
   useEffect(() => {
-    const init = async () => {
-      const user =  getCurrentUserData();
-
-      if (user) {
-        setDeviceList(user.devices);
-      }
-    };
-
-    init();
-  }, [update]);
+    const user = getCurrentUserData()
+    console.log(user)
+    if (user) {
+      setDeviceList(user.devices)
+    }
+  }, [update])
 
   const handleSubmitDevice = async (device: IDevice) => {
     const user =  getCurrentUserData();
