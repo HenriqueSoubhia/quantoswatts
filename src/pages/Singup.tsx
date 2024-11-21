@@ -10,10 +10,10 @@ import useMenageUser from '@/hooks/useMenageUser'
 import useAuth from '@/hooks/useAuth'
 
 const Signup = () => {
-  const [name, setName] = useState('henrique')
-  const [email, setEmail] = useState('henrique@gmail.com')
-  const [password, setPassword] = useState('123')
-  const [confirmPassword, setConfirmPassword] = useState('123')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const { getUsers, addUser } = useMenageUser()
 
