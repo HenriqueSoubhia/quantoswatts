@@ -2,6 +2,10 @@
 
 Uma aplicação web para monitorar e gerenciar o consumo de energia elétrica em residências. Permite aos usuários registrar dispositivos, visualizar dados de consumo e compartilhar informações com outros membros da casa.
 
+## 👥 Membros do Grupo:
+- Andrey Rodrigues Nagata - RM: 555339
+- Henrique Soubhia - RM: 554493
+
 ## 🛠 Funcionalidades
 - Registro de dispositivos com cálculo de consumo por hora.
 - Visualização gráfica do consumo diário, semanal e mensal.
